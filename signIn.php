@@ -51,10 +51,6 @@
     <section id="login-sn">
       <div class="bg">
         <section class="container">
-          <hgroup>
-            <h1>Welcome back</h1>
-            <p>The world awaits your cuisines.</p>
-          </hgroup>
           <form class="card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <h1>Sign In</h1>
             <p>Access your account and start sharing recipes</p>

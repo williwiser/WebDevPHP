@@ -51,10 +51,6 @@
     <section id="login-sn">
       <div class="bg">
         <section class="container">
-          <hgroup>
-            <h1>Create an Account</h1>
-            <p>Join our diverse recipe community!</p>
-          </hgroup>
           <form class="card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
             $userName = $password = $email = "";
