@@ -1,0 +1,1068 @@
+/************** DEFAULT CSS ACROSS ALL PAGES ************/
+
+/* use fonts */
+@font-face {
+  font-family: Roboto-Regular;
+  src: url("font/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: Roboto-Bold;
+  src: url("font/Roboto-Bold.ttf");
+}
+
+/* remove default browser paddings and margins */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+ /* Center align the overlay content */
+ .overlay {
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  height: 100%; /* Full height of the header */
+  text-align: center; /* Center text */
+}
+
+/* Style for the search bar */
+.search-bar {
+  display: flex; /* Flexbox for horizontal alignment */
+  align-items: center; /* Center items vertically */
+  margin: 20px 0; /* Add vertical space */
+}
+
+#searchRecipeTab {
+  width: 300px; /* Adjust width to your preference */
+  padding: 10px; /* Padding for comfort */
+  border: 2px solid #ccc; /* Border style */
+  border-radius: 20px; /* Rounded edges for oval shape */
+  outline: none; /* Remove default outline */
+  font-size: 16px; /* Font size */
+}
+
+/* Style for the search button */
+button {
+  padding: 10px 20px; /* Padding for the button */
+  border: none; /* Remove default border */
+  border-radius: 20px; /* Rounded edges for oval shape */
+  background-color: #28a745; /* Green background */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-left: 10px; /* Space between search bar and button */
+}
+
+/* Optional: Add hover effect for button */
+button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+h1 {
+  font-family: Roboto-Bold;
+  font-weight: bold;
+}
+
+h2,
+h3,
+a,
+p,
+textarea,
+input,
+label {
+  font-family: Roboto-Regular;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  color: rgb(32, 29, 22);
+  background-color: #dfcb1a;
+  margin-top: 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #e7d645;
+  transition: all 500ms ease-in;
+  cursor: pointer;
+}
+
+.active {
+  border-bottom: 3px #f0c050 solid;
+}
+
+hr {
+  display: block;
+  margin-bottom: 2rem;
+  border: 0;
+  border-top: 1px #c4c9c9 solid;
+  width: 100%;
+}
+/*--------------------------------------------------------------------------------------------------------------*/
+/* Begin Navbar */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* Aligns items to the right */
+  align-items: center; /* Centers items vertically within the navbar */
+  background-color: rgba(51, 51, 51, 0.3); /* Transparent background */
+  position: fixed; /* Fix the navbar at the top */
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+/* List styling */
+.nav-list {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nav items */
+.nav-item {
+  margin: 0 20px; /* Space between the links */
+}
+
+/* Nav links */
+.nav-link {
+  text-decoration: none;
+  color: white; /* Text color */
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  padding: 10px 0; /* Padding for the links */
+  transition: color 0.3s; /* Smooth color transition */
+  letter-spacing: 1px;
+}
+
+/* Hover effect */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px; /* Position underline further from the text */
+  height: 3px;
+  background-color: transparent; /* Start with no color */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  transform: scaleX(0); /* Start with the underline not visible */
+}
+
+/* Hover effect color change */
+.nav-link:hover::after {
+  background-color: #f0c050; /* Use a color similar to the underline in the image */
+  transform: scaleX(1); /* Expand underline on hover */
+}
+/*End of navbar*/
+
+/*--------------------------------------------------------------------------------------------------------------*/
+/* begin Responsive Design for navbar*/
+@media (max-width: 992px) {
+  .nav-link {
+    font-size: 14px; /* Slightly smaller text on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .nav-list {
+    gap: 10px; /* Reduce space between items */
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-link {
+    font-size: 12px; /* Even smaller text on very small screens */
+    padding: 8px 0;
+  }
+}
+/*end responsive design for navbar*/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*Begin Sidebar*/
+
+.toggle-checkbox {
+  /*start by hiding the checkbox*/
+  display: none;
+}
+
+.sidebar {
+  position: fixed;
+  top: 50%; /* Move to the middle of the screen */
+  left: -300px;
+  transform: translateY(-50%); /* Center vertically */
+  width: 250px;
+  height: auto; /* Adjust height based on content */
+  background-color: #333;
+  padding: 20px;
+  transition: left 0.3s ease;
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+/* Toggle button styling */
+.toggle-button {
+  position: fixed;
+  top: 50%; /* Move to the middle of the screen */
+  left: 15px;
+  font-size: 18px; /* Smaller font size for the arrow */
+  background: #333;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+  transition: left 0.3s ease; /* Smooth transition */
+  z-index: 10; /* Ensure the button is on top */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Fully round  */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%); /* Center button vertically */
+  border: none;
+}
+
+/* Arrow icon instead of text */
+.toggle-button::after {
+  content: ">"; /* Arrow symbol */
+  font-size: 18px;
+}
+
+/* When the checkbox is checked, move the sidebar into view */
+.toggle-checkbox:checked + .toggle-button + .sidebar {
+  left: 0;
+}
+
+/* When sidebar is shown, shift toggle button */
+.toggle-checkbox:checked + .toggle-button {
+  left: 265px; /* Adjust based on sidebar width */
+}
+/*end Sidebar*/
+/*--------------------------------------------------------------------------------------------------------------*/
+/* Begin Responsive Design for sidebar*/
+@media (max-width: 992px) {
+  /* Adjust sidebar width for medium screens */
+  .sidebar {
+    width: 200px;
+  }
+
+  /* Adjust button position for medium screens */
+  .toggle-button {
+    left: 5px; /* Adjust as needed */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Further adjust sidebar width for smaller screens */
+  .sidebar {
+    width: 150px;
+  }
+
+  /* Adjust button position for smaller screens */
+  .toggle-button {
+    left: 0; /* Move button closer to the screen edge */
+  }
+}
+
+@media (max-width: 576px) {
+  /* Adjust sidebar width for very small screens */
+  .sidebar {
+    width: 120px;
+  }
+
+  /* Adjust button position for very small screens */
+  .toggle-button {
+    left: 0; /* Ensure button is always visible */
+  }
+}
+/* End Responsive Design for sidebar*/
+/*--------------------------------------------------------------------------------------------------------------*/
+
+/*Start Social buttons*/
+.social-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.social-button {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-size: cover; /* Cover background with icons */
+  border-radius: 50%; /* Make buttons circular */
+  transition: transform 0.3s, opacity 0.3s; /* Smooth hover effect */
+}
+
+/* Hover Effect */
+.social-button:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+  opacity: 0.8; /* Reduce opacity on hover */
+}
+
+/* Specific Social Icons */
+.social-button.instagram {
+  background-image: url("img/instagram.png"); /* Replace with your icon paths */
+}
+
+.social-button.facebook {
+  background-image: url("img/facebook.png");
+}
+
+.social-button.youtube {
+  background-image: url("img/youtube.png");
+}
+
+.social-button.github {
+  background-image: url("img/github.png");
+}
+
+/* container to wrap max width on all content */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+main {
+  background-color: #ebebdc;
+}
+
+/* header section of every page */
+/*---------------------------------------------------------------------------------------------------*/
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(8rem, 30%, 15rem) 1rem; /* the vertical padding must 30% of parent but >= 8rem and <= 13rem */
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    /* bottom, image */ url("img/avocado-bg.jpg");
+  background-size: cover;
+  background-position: 20% 10%;
+  color: white;
+}
+
+header h1 {
+  font-size: 5em;
+  font-weight: 800;
+}
+
+header p {
+  font-size: 1.2em;
+}
+
+#explore-btn {
+  text-decoration: none;
+  box-sizing: border-box;
+  padding: 1.5rem 4rem;
+  color: rgb(32, 29, 22);
+  background-color: #dfcb1a;
+  margin-top: 1rem;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
+#explore-btn:hover {
+  background-color: #e7d645;
+  transition: all 300ms ease-in;
+}
+header span {
+  color: #f0c050;
+}
+
+/* end of header section*/
+/*--------------------------------------------------------------------------------------------------------------*/
+
+/* section headings */
+section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* form elements */
+/*--------------------------------------------------------------------------------------------------------------*/
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid #eac879;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+input,
+textarea {
+  width: 70%;
+  padding: 0.5rem;
+}
+
+input[type="submit"] {
+  width: fit-content;
+  padding: 0.5rem 2rem;
+}
+
+textarea {
+  resize: none;
+  min-height: 10rem;
+}
+
+#frequency {
+  padding: 0.5rem 2rem;
+}
+
+/* forms across all pages */
+#login-sn .container,
+#contact-sn .container,
+#signup-sn .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* end form style */
+/*--------------------------------------------------------------------------------------------------------------*/
+
+/* footer */
+/*--------------------------------------------------------------------------------------------------------------*/
+
+footer p {
+  display: inline-block;
+}
+
+footer p,
+footer address,
+.social-buttons {
+  margin: 5px 0;
+}
+
+footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem; /* Adjust padding as needed */
+}
+
+address {
+  float: right;
+}
+
+/* end footer */
+/*--------------------------------------------------------------------------------------------------------------*/
+
+/********************************* HOME PAGE ********************************/
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Hover effect for cards */
+.card:hover {
+  transform: translateY(-5px); /* Slightly lift the card */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Deepen the shadow */
+  transition: transform 0.3s, box-shadow 0.5s; /* Smooth hover effect */
+}
+.main-content .description {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: rgb(32, 29, 22);
+}
+/* features section on home page */
+#features article {
+  padding: 0;
+  column-count: 3;
+  column-gap: 1rem;
+}
+
+#features hgroup {
+  text-align: center;
+  background-color: #f0c050;
+  padding: 2rem;
+  border-radius: 5px;
+  min-height: 10rem;
+  aspect-ratio: 1.8 / 1;
+}
+
+#features hgroup h3 {
+  margin-bottom: 1rem;
+}
+
+#features hgroup p {
+  color: rgb(32, 29, 22);
+}
+
+/* latest recipes section on home page */
+#latest-recipes {
+  background: rgb(245, 244, 238);
+}
+
+#latest-recipes p {
+  text-align: center;
+}
+
+#latest-recipes ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+#latest-recipes ul li {
+  text-align: center;
+  background-color: #ffffff;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+#latest-recipes li img {
+  height: auto;
+  width: 100%; /* ie8 */
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+#latest-recipes li article {
+  box-sizing: border-box;
+  width: 100%; /* ie8 */
+  padding: 1rem;
+}
+
+#latest-recipes li h3 {
+  color: black;
+}
+#latest-recipes li p {
+  color: #605e5e;
+}
+
+#latest-recipes li a {
+  text-decoration: none;
+  box-sizing: border-box;
+  display: inline-block;
+  max-height: 10%;
+}
+
+/* explore recipes section on home page */
+#explore-sn {
+}
+#explore-sn .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#explore-sn .container p {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+#explore-sn .container ul {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  list-style: none;
+  flex: 1;
+  width: 100%;
+}
+
+#explore-sn .container li {
+  width: 100%;
+}
+
+/* explore section image links */
+.explore-link {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: clamp(5rem, 60%, 10rem) 0;
+  background-size: cover;
+  color: transparent;
+  text-decoration: none;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+li:nth-child(1) .explore-link {
+  background-image: url("foodImages/food1.jpeg");
+}
+
+li:nth-child(1) .explore-link:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    /* bottom, image */ url("foodImages/food1.jpeg");
+  background-size: cover;
+  transition: all 500ms ease-in;
+  color: white;
+}
+
+li:nth-child(2) .explore-link {
+  background-image: url("foodImages/cheesecake.jpg");
+}
+
+li:nth-child(2) .explore-link:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    /* bottom, image */ url("foodImages/cheesecake.jpg");
+  background-size: cover;
+  transition: all 500ms ease-in;
+  color: white;
+}
+
+li:nth-child(3) .explore-link {
+  background-image: url("foodImages/italian.jpg");
+}
+
+li:nth-child(3) .explore-link:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    /* bottom, image */ url("foodImages/italian.jpg");
+  background-size: cover;
+  transition: all 500ms ease-in;
+  color: white;
+}
+
+#reviews-sn {
+  padding-bottom: 4rem;
+  background: rgb(245, 244, 238);
+}
+
+.slide-container {
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+#reviews-sn .slide-container-inner {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+}
+
+.user-review {
+  display: flex;
+  gap: 1rem;
+  background-color: #f0c050;
+  padding: 2rem;
+  border-radius: 5px;
+  text-align: left;
+  max-width: 400px;
+  white-space: wrap;
+  margin-right: 0.5rem;
+  min-height: 8rem;
+}
+
+.user-review img {
+  max-height: 2.5rem;
+  aspect-ratio: 1 / 1;
+}
+
+.user-review hgroup {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.user-review hgroup p {
+  text-align: left;
+  color: rgb(32, 29, 22);
+}
+
+.review-author {
+  margin-top: auto;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0); /* Start from the beginning */
+  }
+  to {
+    transform: translateX(
+      -50%
+    ); /* Move the entire container by 50% of its width */
+  }
+}
+/* newsletter section */
+#newsletter .container {
+  padding: 8rem 0;
+}
+
+#newsletter {
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
+    /* bottom, image */ url("img/spices.jpg");
+  background-size: cover;
+  background-position: 20% 35%;
+  color: white;
+}
+
+#newsletter form {
+  border: none;
+  margin-bottom: 0;
+}
+
+.newsletter-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.newsletter-content p,
+.newsletter-content form {
+  font-size: 1.3em;
+}
+
+.newsletter-content p {
+  max-width: 30rem;
+  margin-right: 5rem;
+  color: rgb(232, 232, 232);
+}
+
+/*Submit Recipe Page----------------------------------------------------------------------------------------*/
+#submit-recipe {
+  background-color: #f0efc6;
+}
+#submit-recipe .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+#recipe-name:focus {
+  outline: none;
+  border-color: rgb(248, 232, 1);
+  box-shadow: 0 0 10px rgba(248, 232, 1);
+}
+
+#recipe-desc:focus {
+  outline: none;
+  border-color: rgb(248, 232, 1);
+  box-shadow: 0 0 10px rgba(248, 232, 1);
+}
+
+/*Submit Recipe Page----------------------------------------------------------------------------------------*/
+
+/*Recipe Page----------------------------------------------------------------------------------------*/
+.recipe-dashboard {
+  display: flex;
+  justify-content: space-around;
+}
+
+.recipe-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.recipe-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px; /* Fixed width */
+  margin: 10px;
+  overflow: hidden;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /*allows if there are transistion effects that it is smooth and not instant*/
+}
+
+.recipe-card:hover {
+  transform: scale(1.05); /*pop up card by 5 percent*/
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /*enlarges the image and adds a box shadow where 0 is horizontal ofset, 8 is vertical offset , 16 is shadow raduis, 0.2 is 20 percent opacity*/
+}
+.recipe-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.recipe-card h2 {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.recipe-card .rating {
+  padding: 0 10px;
+}
+
+.recipe-card .rating span {
+  color: gold;
+}
+
+.recipe-card p {
+  padding: 0 10px 10px;
+  color: #555;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+  .recipe-card {
+    width: calc(50% - 40px); /* Two cards per row */
+  }
+}
+
+@media (max-width: 480px) {
+  .recipe-card {
+    width: 100%; /* One card per row */
+  }
+}
+
+/*Recipe Page----------------------------------------------------------------------------------------*/
+/********************** ABOUT PAGE ****************************/
+#team .members {
+  display: flex;
+  justify-content: space-between;
+}
+
+#intro {
+  background-color: #ebebdc;
+  background-image: url("https://www.transparenttextures.com/patterns/food.png");
+}
+
+#intro-2 {
+  background: rgb(245, 244, 238);
+}
+#intro h1,
+#intro-2 h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#intro p,
+#intro-2 p {
+  color: rgb(32, 29, 22);
+}
+
+#intro h1 {
+  margin: 1rem 0;
+}
+
+#intro hgroup,
+#intro-2 hgroup {
+  max-width: 35rem;
+}
+#intro .container,
+#intro-2 .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#intro img,
+#intro-2 img {
+  max-height: 22rem;
+  box-shadow: #333;
+}
+
+#team h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+#team article h1 {
+  font-size: 1.5rem;
+}
+#team article img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+#team .members hgroup {
+  text-align: center;
+  margin: 1rem;
+}
+#team article {
+  max-width: 20rem;
+  text-align: center;
+  background-color: rgb(245, 244, 238);
+  padding: 1rem;
+  border-radius: 5px;
+}
+@media only screen and (max-width: 800px) {
+  #intro .container,
+  #intro-2 .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #team .members {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #team hgroup p {
+    color: rgb(255, 254, 253);
+  }
+
+  #team article {
+    margin-bottom: 1rem;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  /* media queries for forms */
+  form {
+    align-items: center;
+    border: none;
+  }
+  label {
+    flex-direction: column;
+    width: 80%;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+  }
+
+  /* media queries for features */
+  #features article {
+    column-count: 1;
+    aspect-ratio: unset;
+  }
+
+  #features hgroup {
+    margin-bottom: 1rem;
+  }
+
+  #latest-recipes ul {
+    flex-direction: column;
+  }
+
+  /* media queries for explore section */
+  #explore-sn .container ul {
+    display: block;
+  }
+
+  .explore-link {
+    width: 100%;
+    padding: 5rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+  }
+
+  li:nth-child(1) .explore-link {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      /* bottom, image */ url("foodImages/food1.jpeg");
+    background-size: cover;
+    transition: all 500ms ease-in;
+    color: white;
+  }
+
+  li:nth-child(2) .explore-link {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      /* bottom, image */ url("foodImages/cheesecake.jpg");
+    background-size: cover;
+    transition: all 500ms ease-in;
+    color: white;
+  }
+
+  li:nth-child(3) .explore-link {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      /* bottom, image */ url("foodImages/italian.jpg");
+    background-size: cover;
+    transition: all 500ms ease-in;
+    color: white;
+  }
+
+  /* media queries for newsletter*/
+  .newsletter-content {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    font-size: 0.8em;
+  }
+
+  .newsletter-content p {
+    margin-right: 0;
+  }
+}
+
+/*-----------------------------------------------------------------------------------------------------------*/
+/*Recipe-Detail*/
+
+#myHeader{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(8rem, 30%, 15rem) 1rem; /* the vertical padding must 30% of parent but >= 8rem and <= 13rem */
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    /* bottom, image */ url("img/avocado-bg.jpg");
+  background-size: cover;
+  background-position: 20% 10%;
+  color: white;
+}
+
+#recipe-detail {
+  width : 35%;
+  height : 35%;
+  border: black solid 1px;
+}
+
+#recipe-discription {
+  font-size: 25px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#recipe-detail {
+  width: 35%;
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensures margin auto works */
+  margin: 0 auto 20px auto; /* Centers horizontally and adds margin at the bottom */
+  border: black solid 1px;
+  border-radius: 10px;
+  max-width: 100%;
+  text-align: center;
+}
+
+#myh2{
+  font-size: 24px;
+  color: #ff5722;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ff5722;
+}
+.recipe-Section {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
