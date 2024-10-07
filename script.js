@@ -103,7 +103,8 @@ const recipes = [
     title: "Caesar Salad",
     image: "img/caeser.jpg",
     rating: 4.4,
-    description: "Crisp romaine lettuce with creamy Caesar dressing and croutons.",
+    description:
+      "Crisp romaine lettuce with creamy Caesar dressing and croutons.",
     instructions: [
       "Wash and chop romaine lettuce.",
       "Toss lettuce with Caesar dressing.",
@@ -119,8 +120,6 @@ const recipes = [
     ],
   },
 ];
-
-
 
 // Function to generate recipe cards
 function loadRecipes() {
@@ -257,7 +256,6 @@ function addLatestRecipe(recipe) {
       </li>`;
 }
 
-
 //Task 6 and task 7
 // ----------- ADDED: Adjust column layout dynamically based on window size ----------- //
 function adjustColumnLayout() {
@@ -317,10 +315,10 @@ function resetBackgroundColor() {
   document.body.style.backgroundColor = "";
 }
 
-function onFormSubmit(event) {
-  event.preventDefault();
-  alert("Form submitted!");
-}
+// function onFormSubmit(event) {
+//   event.preventDefault();
+//   //alert("Form submitted!");
+// }
 
 // ----------- Attach Event Listeners to Elements ----------- //
 
@@ -331,7 +329,9 @@ document.querySelectorAll(".recipe-card").forEach((card) => {
 });
 
 // Sidebar toggle
-document.querySelector(".toggle-button").addEventListener("click", toggleSidebar);
+document
+  .querySelector(".toggle-button")
+  .addEventListener("click", toggleSidebar);
 
 // Log scroll position
 window.addEventListener("scroll", logScrollPosition);
@@ -348,8 +348,12 @@ document.querySelectorAll(".recipe-card").forEach((card) => {
 window.addEventListener("keydown", detectKeydown);
 
 // Change background color on button hover
-document.querySelector(".navbar").addEventListener("mouseenter", changeBackgroundColor);
-document.querySelector(".navbar").addEventListener("mouseleave", resetBackgroundColor);
+document
+  .querySelector(".navbar")
+  .addEventListener("mouseenter", changeBackgroundColor);
+document
+  .querySelector(".navbar")
+  .addEventListener("mouseleave", resetBackgroundColor);
 
 // Form submit example (if there is a form)
 const formElement = document.querySelector("form");
@@ -357,21 +361,19 @@ if (formElement) {
   formElement.addEventListener("submit", onFormSubmit);
 }
 
+function searchRecipeDatabase() {
+  const searchQuery = document.getElementById("searchRecipeTab").value;
 
-         
- function searchRecipeDatabase() {
-    const searchQuery = document.getElementById("searchRecipeTab").value;
+  // AJAX request to PHP file
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "search.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // AJAX request to PHP file
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "search.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.onload = function () {
+  xhr.onload = function () {
     if (this.status === 200) {
-        document.getElementById("results").innerHTML = this.responseText;
-        }
-      };
-
-      xhr.send("query=" + encodeURIComponent(searchQuery));
+      document.getElementById("results").innerHTML = this.responseText;
     }
+  };
+
+  xhr.send("query=" + encodeURIComponent(searchQuery));
+}

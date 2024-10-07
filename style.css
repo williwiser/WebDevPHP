@@ -71,6 +71,7 @@ a,
 p,
 textarea,
 input,
+span,
 label {
   font-family: Roboto-Regular;
 }
@@ -1067,6 +1068,11 @@ li:nth-child(3) .explore-link:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.error {
+  color: red;
+  font-size: 1rem;
+}
+
 #signIn main {
   height: 100vh;
 
@@ -1112,7 +1118,7 @@ label {
 
 #signIn form input {
   box-sizing: border-box;
-  margin-bottom: 1rem;
+  margin-top: clamp(0.2rem, 20%, 1rem);
   width: 100%;
 }
 
@@ -1120,6 +1126,10 @@ label {
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.terms {
+  margin-top: clamp(0.2rem, 20%, 1rem);
 }
 
 #signIn form input[type="submit"] {
@@ -1131,8 +1141,7 @@ label {
   width: min-content;
   box-sizing: border-box;
   display: inline;
-  height: 100%;
-  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .bg {
