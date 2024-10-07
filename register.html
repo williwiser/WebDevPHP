@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register | Recipes</title>
+    <title>Sign In | Recipes</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
-  <body>
+  <body id="signIn">
     <nav class="navbar">
       <ul class="nav-list">
         <li class="nav-item">
@@ -45,78 +45,48 @@
     </div>
     <!--end Sidebar-->
 
-    <header>
-      <h1>Create an Account</h1>
-      <p>Join our community and start sharing your recipes today!</p>
-    </header>
-
     <main>
-      <section id="signup-sn">
-        <section class="container">
-          <form action="register_user.html" method="post">
-            <h2>Register</h2>
-            <label for="new-username"
-              >Username:
-              <input
-                type="text"
-                id="new-username"
-                name="username"
-                placeholder="e.g. john_smith"
-                required
-            /></label>
-            <label for="email"
-              >Email: <input type="email" id="email" name="email" required
-            /></label>
+      <section id="login-sn">
+        <div class="bg">
+          <section class="container">
+            <hgroup>
+              <h1>Create an Account</h1>
+              <p>Join our diverse recipe community!</p>
+            </hgroup>
+            <form class="card" action="login.html" method="post">
+              <h1>Sign Up</h1>
+              <p>Sign up to share your favorite recipes.</p>
 
-            <label for="new-password"
-              >Password:
-              <input type="password" id="new-password" name="password" required
-            /></label>
-            <input type="submit" value="Register" />
-          </form>
-          <p>Already have an account? <a href="signIn.html">Sign In</a></p>
-        </section>
+              <input
+                placeholder="User Name"
+                type="text"
+                id="username"
+                name="username"
+                required
+              />
+
+              <input
+                placeholder="Email"
+                type="email"
+                id="email"
+                name="email"
+                required
+              />
+
+              <input
+                placeholder="Password"
+                type="password"
+                id="password"
+                name="password"
+                required
+              />
+
+              <input class="btn" type="submit" value="Sign In" />
+              <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+            </form>
+          </section>
+        </div>
       </section>
     </main>
-    <script src="navigator-info.js"></script>
-    <footer>
-      <section class="container">
-        <p>&copy; The OG's 2024. All rights reserved.</p>
-        <address role="contentinfo">
-          Email: <a href="mailto:recipe@gmail.com">recipe@gmail.com</a><br />
-          Phone: <a href="tel:+27451234567">+27 45 123 4567</a>
-        </address>
-      </section>
-      <!--Begin social buttons-->
-
-      <!--TODO replace links with relevant locations-->
-      <div class="social-buttons">
-        <a
-          href="https://www.instagram.com"
-          class="social-button instagram"
-          aria-label="Instagram"
-          target="_blank"
-        ></a>
-        <a
-          href="https://www.facebook.com"
-          class="social-button facebook"
-          aria-label="Facebook"
-          target="_blank"
-        ></a>
-        <a
-          href="https://www.youtube.com"
-          class="social-button youtube"
-          aria-label="YouTube"
-          target="_blank"
-        ></a>
-        <a
-          href="https://www.github.com"
-          class="social-button github"
-          aria-label="GitHub"
-          target="_blank"
-        ></a>
-      </div>
-      <!--End social buttons-->
-    </footer>
   </body>
 </html>
