@@ -1126,6 +1126,14 @@ label {
   align-self: center;
 }
 
+#signIn form input[type="checkbox"] {
+  width: min-content;
+  box-sizing: border-box;
+  display: inline;
+  height: 100%;
+  margin-bottom: 0;
+}
+
 .bg {
   width: 100%;
   height: 100%;
