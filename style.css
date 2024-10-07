@@ -17,8 +17,8 @@
   margin: 0;
 }
 
- /* Center align the overlay content */
- .overlay {
+/* Center align the overlay content */
+.overlay {
   display: flex; /* Enable flexbox */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center items horizontally */
@@ -1016,7 +1016,7 @@ li:nth-child(3) .explore-link:hover {
 /*-----------------------------------------------------------------------------------------------------------*/
 /*Recipe-Detail*/
 
-#myHeader{
+#myHeader {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1030,8 +1030,8 @@ li:nth-child(3) .explore-link:hover {
 }
 
 #recipe-detail {
-  width : 35%;
-  height : 35%;
+  width: 35%;
+  height: 35%;
   border: black solid 1px;
 }
 
@@ -1052,7 +1052,7 @@ li:nth-child(3) .explore-link:hover {
   text-align: center;
 }
 
-#myh2{
+#myh2 {
   font-size: 24px;
   color: #ff5722;
   margin-bottom: 10px;
@@ -1065,4 +1065,88 @@ li:nth-child(3) .explore-link:hover {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#signIn main {
+  height: 100vh;
+
+  background-size: cover;
+}
+
+#signIn section {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+#signIn header {
+  background: none;
+  padding: 10rem 0;
+  color: #333;
+}
+
+#signIn form {
+  border: none;
+  background-color: rgb(245, 245, 245);
+  padding: 2rem 3rem;
+  max-width: 25rem;
+}
+
+#signIn form h1 {
+  font-size: 4em;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+label {
+  align-items: center;
+}
+#signIn form p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #605e5e;
+}
+
+#signIn form p:first-child {
+  margin-bottom: 2rem;
+}
+
+#signIn form input {
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+#signIn form p:last-child {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#signIn form input[type="submit"] {
+  width: 80%;
+  align-self: center;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    /* bottom, image */ url("img/avocado-bg.jpg");
+}
+
+#login-sn .container {
+  align-items: center;
+  gap: 1rem;
+}
+#login-sn hgroup {
+  color: white;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+#login-sn hgroup h1 {
+  font-size: 5em;
+  color: #eac879;
+}
+
+#login-sn hgroup p {
+  font-size: 2em;
 }
