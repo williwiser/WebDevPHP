@@ -51,7 +51,7 @@
     <section id="login-sn">
       <div class="bg">
         <section class="container">
-          <form class="card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
             $userName = $password = $email = "";
             $userNameErr = $passwordErr = $emailErr = $termsErr = "";
@@ -96,12 +96,12 @@
             <input placeholder="Password" type="password" id="password" name="password" />
             <span class="error"><?php echo $passwordErr ?></span>
             <label class="terms" for="terms">
-              <input type="checkbox" id="terms" name="terms" value="Bike" />
+              <input type="checkbox" id="terms" name="terms" value="terms" />
               <span>I have read and understood the
                 <a href="terms.html">terms and conditions</a>
               </span>
             </label>
-            <span class="error"><?php echo $termsErr ?></span>
+            <span class="error termsErr"><?php echo $termsErr ?></span>
             <input class="btn" type="submit" value="Sign Up" />
             <p>Already have an account? <a href="signIn.php">Sign In</a></p>
           </form>

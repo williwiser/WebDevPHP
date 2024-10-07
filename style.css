@@ -72,6 +72,7 @@ p,
 textarea,
 input,
 span,
+small,
 label {
   font-family: Roboto-Regular;
 }
@@ -491,6 +492,10 @@ address {
 
 /********************************* HOME PAGE ********************************/
 .card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.no-hover-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
@@ -1171,6 +1176,10 @@ label {
 
 #login-sn hgroup p {
   font-size: 2em;
+}
+
+.termsErr {
+  text-align: center;
 }
 
 @media only screen and (max-width: 650px) {

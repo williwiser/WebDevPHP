@@ -347,14 +347,6 @@ document.querySelectorAll(".recipe-card").forEach((card) => {
 // Detect keypresses on the page
 window.addEventListener("keydown", detectKeydown);
 
-// Change background color on button hover
-document
-  .querySelector(".navbar")
-  .addEventListener("mouseenter", changeBackgroundColor);
-document
-  .querySelector(".navbar")
-  .addEventListener("mouseleave", resetBackgroundColor);
-
 // Form submit example (if there is a form)
 const formElement = document.querySelector("form");
 if (formElement) {

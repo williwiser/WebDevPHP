@@ -51,7 +51,7 @@
     <section id="login-sn">
       <div class="bg">
         <section class="container">
-          <form class="card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <h1>Sign In</h1>
             <p>Access your account and start sharing recipes</p>
             <?php
