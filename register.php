@@ -52,68 +52,70 @@
       <div class="bg">
         <section class="container">
           <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <?php
+<?php
 
             
- $servername = "localhost";
- $username = "root";
- $password = ""; // Default password for XAMPP MySQL
- $dbname = "recipe_website_schema";
- 
- // Create connection
- $conn = new mysqli($servername, $username, $password, $dbname);
- 
- // Check connection
- if ($conn->connect_error) {
-     die("Connection failed: " . $conn->connect_error);
- }
- 
- // Check if the form is submitted
- if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     $user = $_POST['username'];
-     $email = $_POST['email'];
-     $pass = $_POST['password'];
- 
-     // Validate input (basic validation for example purposes)
-     if (!empty($user) && !empty($email) && !empty($pass)) {
-         // Check if the email already exists in the database
-         $checkEmail = $conn->prepare("SELECT email FROM users WHERE email = ?");
-         $checkEmail->bind_param("s", $email);
-         $checkEmail->execute();
-         $checkEmail->store_result();
- 
-         if ($checkEmail->num_rows > 0) {
-             echo "Email is already registered. Please use a different email.";
-         } else {
-             // Hash the password securely
-             $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
- 
-             // Prepare and bind
-             $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-             $stmt->bind_param("sss", $user, $email, $hashedPassword);
- 
-             // Execute the statement
-             if ($stmt->execute()) {
-                 echo "Registration successful!";
-             } else {
-                 echo "Error: " . $stmt->error;
-             }
- 
-             // Close the statement
-             $stmt->close();
+            $servername = "localhost";
+            $username = "root";
+            $password = ""; // Default password for XAMPP MySQL
+            $dbname = "recipe_website_schema";
+            
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
             }
- 
-         // Close the email check statement
-         $checkEmail->close();
-     } else {
-         echo "All fields are required!";
-     }
- }
- 
- // Close the connection
- $conn->close();
-            $userName = $password = $email = "";
-            $userNameErr = $passwordErr = $emailErr = $termsErr = "";
+            
+            // Check if the form is submitted
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $user = $_POST['username'];
+                $email = $_POST['email'];
+                $pass = $_POST['password'];
+            
+                // Validate input (basic validation for example purposes)
+                if (!empty($user) && !empty($email) && !empty($pass) && !empty($userType)) {
+                    // Check if the email already exists in the database
+                    $checkEmail = $conn->prepare("SELECT email FROM users WHERE email = ?");
+                    $checkEmail->bind_param("s", $email);
+                    $checkEmail->execute();
+                    $checkEmail->store_result();
+            
+                    if ($checkEmail->num_rows > 0) {
+                        echo "Email is already registered. Please use a different email.";
+                    } else {
+                        // Hash the password securely
+                        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+            
+                        // Prepare and bind
+                        $stmt = $conn->prepare("INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, ?)");
+                        $stmt->bind_param("sss", $user, $email, $hashedPassword,$userType);
+            
+                        // Execute the statement
+                        if ($stmt->execute()) {
+                            echo "Registration successful!";
+                        } else {
+                            echo "Error: " . $stmt->error;
+                        }
+            
+                        // Close the statement
+                        $stmt->close();
+                        }
+            
+                    // Close the email check statement
+                    $checkEmail->close();
+                } else {
+                    echo "All fields are required!";
+                }
+            }
+            
+            // Close the connection
+            $conn->close();
+
+
+            $userName = $password = $email = $userType = "";
+            $userNameErr = $passwordErr = $emailErr = $termsErr = $userTypeErr = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
               if (empty($_POST["username"])) {
                 $userNameErr = "* user name required";
