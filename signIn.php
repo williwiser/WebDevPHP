@@ -55,29 +55,87 @@
             <h1>Sign In</h1>
             <p>Access your account and start sharing recipes</p>
             <?php
-            $userName = $password = "";
-            $userNameErr = $passwordErr = "";
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-              if (empty($_POST["username"])) {
-                $userNameErr = "* user name required";
-              } else {
-                $userName = cleanInput($_POST["username"]);
-              }
-              if (empty($_POST["password"])) {
-                $passwordErr = "* password required";
-              } else {
-                $password = cleanInput($_POST["password"]);
-              }
-            }
+//------------------------------------------------------------------------------------------------------------
+//Add database connection here
 
-            function cleanInput($data)
-            {
-              $data = trim($data);
-              $data = stripslashes($data);
-              $data = htmlspecialchars($data);
-              return $data;
+$servername = "localhost";
+$username = "root";
+$password = ""; // Default password for XAMPP MySQL
+$dbname = "recipe_website_schema";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} // <-- Closing brace added here
+
+$userName = $password = "";
+$userNameErr = $passwordErr = "";
+$loginErr = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["username"])) {
+        $userNameErr = "* User name required";
+    } else {
+        $userName = cleanInput($_POST["username"]);
+    }
+    if (empty($_POST["password"])) {
+        $passwordErr = "* Password required";
+    } else {
+        $password = cleanInput($_POST["password"]);
+    }
+
+    // Proceed only if no validation errors
+    if (empty($userNameErr) && empty($passwordErr)) {
+        // Prepare and bind to check if the user exists
+        $stmt = $conn->prepare("SELECT user_id, password FROM users WHERE username = ?");
+        $stmt->bind_param("s", $userName);
+        $stmt->execute();
+        $stmt->store_result();
+
+        // If user is found
+        if ($stmt->num_rows > 0) {
+            // Bind the result variables
+            $stmt->bind_result($userId, $hashedPassword);
+            $stmt->fetch();
+
+            // Verify the password
+            if (password_verify($password, $hashedPassword)) {
+                // Password is correct - start a session
+                session_start();
+                $_SESSION["loggedin"] = true;
+                $_SESSION["user_id"] = $userId;
+                $_SESSION["username"] = $userName;
+
+                // Redirect to a logged-in page or dashboard
+                header("Location: index.php");
+                exit;
+            } else {
+                $loginErr = "Invalid password. Please try again.";
             }
-            ?>
+        } else {
+            $loginErr = "No account found with that username.";
+        }
+
+        // Close the statement
+        $stmt->close();
+    }
+}
+
+// Close the connection
+$conn->close();
+
+function cleanInput($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+?>
+
 
             <input placeholder="User Name" type="text" id="username" name="username" />
             <span class="error"><?php echo $userNameErr ?></span>
