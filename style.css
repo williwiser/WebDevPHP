@@ -1112,6 +1112,10 @@ li:nth-child(3) .explore-link:hover {
   margin-bottom: 1rem;
 }
 
+#signIn select {
+  padding: 0.5rem;
+}
+
 label {
   align-items: center;
 }
@@ -1125,7 +1129,8 @@ label {
   margin-bottom: 2rem;
 }
 
-#signIn form input {
+#signIn form input,
+#signIn form select {
   box-sizing: border-box;
   margin-top: clamp(0.2rem, 20%, 1rem);
   width: 100%;
@@ -1240,6 +1245,9 @@ label {
   box-sizing: border-box;
   padding: 1rem 2rem;
   color: white;
+}
+
+#my-account select {
 }
 
 .info {
