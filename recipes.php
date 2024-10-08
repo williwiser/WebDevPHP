@@ -1,3 +1,39 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = ""; // Adjust if needed
+$dbname = "recipe_website_schema";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch all recipes
+$sql = "SELECT * FROM recipes";
+$result = $conn->query($sql);
+
+// Convert the result into an array
+$recipes = [];
+if ($result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $recipes[] = $row;
+  }
+  // echo "<pre>";
+  // print_r($recipes); // Debug line to print out all fetched recipes
+  //  echo "</pre>";
+} else {
+  echo "No recipes found.";
+}
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,10 +85,7 @@
 
   <header>
     <h1>Explore Recipes</h1>
-    <p>
-      Browse through our extensive collection of recipes shared by food
-      enthusiasts like you!
-    </p>
+    <p>Browse through our extensive collection of recipes shared by food enthusiasts like you!</p>
   </header>
 
   <!-- Begin Recipe Dashboard -->
@@ -60,6 +93,22 @@
     <h1>What's Popular</h1>
     <hr>
     <div id="recipe-cards" class="recipe-cards"></div>
+    <div id="recipe-cards" class="recipe-cards">
+      <?php if (!empty($recipes)): ?>
+        <?php foreach ($recipes as $recipe): ?>
+          <div class="recipe-card"
+            onclick="window.location.href='recipe-detail.php?recipe_id=<?php echo $recipe['recipe_id']; ?>'">
+            <img src="<?php echo htmlspecialchars($recipe['image']); ?>"
+              alt="<?php echo htmlspecialchars($recipe['title']); ?>">
+            <h2><?php echo htmlspecialchars($recipe['title']); ?></h2>
+            <div class="rating">Rating: <?php echo htmlspecialchars($recipe['rating']); ?> <span>&#9733;</span></div>
+            <p><?php echo htmlspecialchars($recipe['description']); ?></p>
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p>No recipes available at the moment.</p>
+      <?php endif; ?>
+    </div>
   </section>
   <!-- End Recipe Dashboard -->
 
@@ -67,8 +116,6 @@
     <section class="container">
       <p>&copy; The OG's 2024. All rights reserved.</p>
       <!--Begin social buttons-->
-
-      <!--TODO replace links with relevant locations-->
       <div class="social-buttons">
         <a href="https://www.instagram.com" class="social-button instagram" aria-label="Instagram" target="_blank"></a>
         <a href="https://www.facebook.com" class="social-button facebook" aria-label="Facebook" target="_blank"></a>

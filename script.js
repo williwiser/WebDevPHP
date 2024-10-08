@@ -1,165 +1,52 @@
-// This will be replaced with php, where all recipes will be loaded from a database
-const recipes = [
-  {
-    title: "Beef Stew",
-    image: "img/stew.jpg",
-    rating: 4.5,
-    description: "Classic beef stew with vegetables.",
-    instructions: [
-      "Brown the beef in a pot.",
-      "Add chopped vegetables and broth.",
-      "Simmer for 1-2 hours until tender.",
-    ],
-    ingredients: [
-      "1 lb beef",
-      "3 carrots, chopped",
-      "2 potatoes, diced",
-      "1 onion, chopped",
-      "2 cups beef broth",
-      "Salt and pepper to taste",
-    ],
-  },
-  {
-    title: "Spaghetti Carbonara",
-    image: "img/sphageti.jpg",
-    rating: 4.7,
-    description: "Rich spaghetti with creamy carbonara sauce.",
-    instructions: [
-      "Cook spaghetti according to package instructions.",
-      "Fry pancetta until crispy.",
-      "Mix with eggs, cheese, and pepper.",
-      "Toss with cooked spaghetti and serve.",
-    ],
-    ingredients: [
-      "200g spaghetti",
-      "100g pancetta",
-      "2 large eggs",
-      "50g Parmesan cheese",
-      "Black pepper to taste",
-      "Salt to taste",
-    ],
-  },
-  {
-    title: "Chicken Curry",
-    image: "img/chicken_curry.jpg",
-    rating: 4.8,
-    description: "Spicy and flavorful chicken curry.",
-    instructions: [
-      "Sauté onions and garlic until softened.",
-      "Add curry powder and diced chicken, cook until browned.",
-      "Stir in coconut milk and simmer until chicken is cooked.",
-    ],
-    ingredients: [
-      "500g chicken breast, diced",
-      "1 onion, chopped",
-      "2 garlic cloves, minced",
-      "1 tbsp curry powder",
-      "1 can coconut milk",
-      "Salt to taste",
-    ],
-  },
-  {
-    title: "Vegetable Stir-fry",
-    image: "img/vegstir.jpg",
-    rating: 4.6,
-    description: "Quick and healthy vegetable stir-fry with soy sauce.",
-    instructions: [
-      "Heat sesame oil in a wok.",
-      "Stir-fry sliced vegetables until tender-crisp.",
-      "Add soy sauce and seasoning, stir for 2 minutes.",
-      "Serve hot with rice.",
-    ],
-    ingredients: [
-      "1 bell pepper, sliced",
-      "1 zucchini, sliced",
-      "1 carrot, julienned",
-      "2 tbsp soy sauce",
-      "1 tbsp sesame oil",
-      "Salt and pepper to taste",
-    ],
-  },
-  {
-    title: "Chocolate Cake",
-    image: "img/choc_cake.jpg",
-    rating: 4.9,
-    description: "Moist and rich chocolate cake with frosting.",
-    instructions: [
-      "Preheat the oven to 350°F (175°C).",
-      "Mix flour, sugar, cocoa powder, and baking soda.",
-      "Add milk, oil, and eggs, and mix well.",
-      "Bake for 30-35 minutes. Let cool before frosting.",
-    ],
-    ingredients: [
-      "1 1/2 cups flour",
-      "1 cup sugar",
-      "1/2 cup cocoa powder",
-      "1 tsp baking soda",
-      "1 cup milk",
-      "1/2 cup vegetable oil",
-      "2 large eggs",
-    ],
-  },
-  {
-    title: "Caesar Salad",
-    image: "img/caeser.jpg",
-    rating: 4.4,
-    description:
-      "Crisp romaine lettuce with creamy Caesar dressing and croutons.",
-    instructions: [
-      "Wash and chop romaine lettuce.",
-      "Toss lettuce with Caesar dressing.",
-      "Top with croutons and Parmesan cheese.",
-      "Serve chilled with a sprinkle of black pepper.",
-    ],
-    ingredients: [
-      "1 head romaine lettuce",
-      "1/2 cup Caesar dressing",
-      "1/4 cup grated Parmesan cheese",
-      "1 cup croutons",
-      "Black pepper to taste",
-    ],
-  },
-];
+
 
 // Function to generate recipe cards
-function loadRecipes() {
+async function loadRecipes() {
   const recipeContainer = document.getElementById("recipe-cards");
 
-  // Clear container before adding recipes (just in case)
-  recipeContainer.innerHTML = "";
+  try {
+    // Fetch recipes from the server
+    const response = await fetch('get_recipes.php');
+    const recipes = await response.json();
 
-  recipes.forEach((recipe) => {
-    const recipeCard = document.createElement("div");
-    recipeCard.classList.add("recipe-card");
+    // Clear container before adding recipes (just in case)
+    recipeContainer.innerHTML = "";
 
-    // Add inner HTML
-    recipeCard.innerHTML = `
-      <img src="${recipe.image}" alt="${recipe.title}">
-      <h2>${recipe.title}</h2>
-      <div class="rating">Rating: ${recipe.rating} <span>&#9733;</span></div>
-      <p>${recipe.description}</p>
-    `;
+    recipes.forEach((recipe) => {
+      const recipeCard = document.createElement("div");
+      recipeCard.classList.add("recipe-card");
 
-    //lets add an eventlistener to each recipe card
-    recipeCard.addEventListener("click", () => {
-      localStorage.setItem("selectedRecipe", JSON.stringify(recipe)); //Save recipe data to localStorage
-      window.location.href = "recipe-detail.html";
-    }); //  function within event listener
+      // Add inner HTML
+      recipeCard.innerHTML = `
+        <img src="${recipe.image}" alt="${recipe.title}">
+        <h2>${recipe.title}</h2>
+        <div class="rating">Rating: ${recipe.rating} <span>&#9733;</span></div>
+        <p>${recipe.description}</p>
+      `;
 
-    // Append to the container
-    recipeContainer.appendChild(recipeCard);
-  });
+      // Add event listener to each recipe card
+      recipeCard.addEventListener("click", () => {
+        console.log(`Recipe ID: ${recipe.recipe_id}`); // Debug line to confirm recipe_id is correct
+        window.location.href = `recipe-detail.php?recipe_id=${recipe.recipe_id}`;
+      });
 
-  // Check how many recipe cards were added
-  console.log(
-    `Total recipe cards added: ${
-      document.querySelectorAll(".recipe-card").length
-    }`
-  );
+      // Append to the container
+      recipeContainer.appendChild(recipeCard);
+    });
+
+    // Check how many recipe cards were added
+    console.log(`Total recipe cards added: ${recipes.length}`);
+
+  } catch (error) {
+    console.error('Error loading recipes:', error);
+    recipeContainer.innerHTML = "<p>Failed to load recipes.</p>";
+  }
 }
 
 // Load recipes on page load
 window.onload = loadRecipes;
+
+
 
 // globals
 const scrollerContainer = document.querySelector(".slide-container-inner");
