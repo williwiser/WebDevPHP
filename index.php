@@ -178,10 +178,10 @@
 
           <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
-            $servername = "CS3-DEV.ICT.RU.AC.ZA";
-            $userName = "TheOGs";
-            $password = "M7fiB7C6";
-            $dbname = "theogs";
+            $servername = "localhost";
+            $userName = "root";
+            $password = "";
+            $dbname = "recipe_website_schema";
             $conn = new mysqli($servername, $userName, $password, $dbname);
             if ($conn->connect_error) {
               die("Connection failed: " . $conn->connect_error);
