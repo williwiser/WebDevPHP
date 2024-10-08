@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign In | Recipes</title>
+  <title>Sign Up | Recipes</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
@@ -130,6 +130,11 @@
               } else {
                 $password = cleanInput($_POST["password"]);
               }
+              if (empty($_POST["user_type"])) {
+                $userTypeErr = "* user type required";
+              } else {
+                $userType = cleanInput($_POST["user_type"]);
+              }
               if (!isset($_POST["terms"])) {
                 $termsErr = "Please agree to the terms and conditions to proceed.";
               }
@@ -154,6 +159,13 @@
 
             <input placeholder="Password" type="password" id="password" name="password" />
             <span class="error"><?php echo $passwordErr ?></span>
+
+            <select id="user_type" name="user_type">
+              <option value="" disabled selected>User Type</option>
+              <option value="normal">Normal</option>
+              <option value="editor">Editor</option>
+            </select>
+            <span class="error"><?php echo $userTypeErr ?></span>
             <label class="terms" for="terms">
               <input type="checkbox" id="terms" name="terms" value="terms" />
               <span>I have read and understood the
