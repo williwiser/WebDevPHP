@@ -75,3 +75,6 @@ SELECT * FROM recipes;
 SELECT * FROM ingredients ;
 SELECT * FROM instructions;
 
+SELECT * FROM ingredients WHERE recipe_id = 2;  -- Replace with appropriate recipe_id
+SELECT * FROM instructions WHERE recipe_id = 2; -- Replace with appropriate recipe_id
+
