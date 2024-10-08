@@ -178,15 +178,14 @@
 
           <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
-            // $servername = "CS3-DEV.ICT.RU.AC.ZA";
-            // $userName = "TheOGs";
-            // $password = "M7fiB7C6";
-            // $conn = new mysqli($servername, $userName, $password);
-            // if ($conn->connect_error) {
-            //   die("Connection failed: " . $conn->connect_error);
-            // } else {
-            //   echo "Connected successfully!";
-            // }
+            $servername = "CS3-DEV.ICT.RU.AC.ZA";
+            $userName = "TheOGs";
+            $password = "M7fiB7C6";
+            $dbname = "theogs";
+            $conn = new mysqli($servername, $userName, $password, $dbname);
+            if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
+            }
             $email = "";
             $emailErr = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -196,6 +195,25 @@
                 $email = cleanInput($_POST["email"]);
               }
               $frequency = $_POST["frequency"];
+
+              $stmt = $conn->prepare("SELECT * FROM newsletter WHERE email = ?");
+              $stmt->bind_param("s", $email);
+              $stmt->execute();
+              $result = $stmt->get_result();
+              if ($result->num_rows == 0) {
+                $stmt = $conn->prepare("INSERT INTO newsletter (email, frequency) VALUES (?, ?)");
+                $stmt->bind_param("ss", $email, $frequency);
+
+                if ($stmt->execute()) {
+                  echo "Subscription successful";
+                } else {
+                  echo "error: " . $sql . "<br>" . $conn->error;
+                }
+              } else {
+                echo "This email is already on our mailing list.";
+              }
+
+              $stmt->close();
             }
 
             function cleanInput($data)

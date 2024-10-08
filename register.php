@@ -57,10 +57,10 @@
             $userNameErr = $passwordErr = $emailErr = $termsErr = $userTypeErr = "";
 
             // Include database configuration
-            $servername = "localhost";
-            $username = "root";
-            $password = ""; // Default password for XAMPP MySQL
-            $dbname = "recipe_website_schema";
+            $servername = "CS3-DEV.ICT.RU.AC.ZA";
+            $username = "TheOGs";
+            $password = "M7fiB7C6"; // Default password for XAMPP MySQL
+            $dbname = "theogs";
 
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
