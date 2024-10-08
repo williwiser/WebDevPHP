@@ -478,17 +478,20 @@ footer p,
 footer address,
 .social-buttons {
   margin: 5px 0;
+  text-align: center;
 }
 
 footer .container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 1rem; /* Adjust padding as needed */
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 3rem; /* Adjust padding as needed */
 }
 
-address {
-  float: right;
+footer address {
+  display: inline-block;
 }
 
 /* end footer */
@@ -789,7 +792,13 @@ li:nth-child(3) .explore-link:hover {
 /*Recipe Page----------------------------------------------------------------------------------------*/
 .recipe-dashboard {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+}
+
+.recipe-dashboard h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 2rem;
 }
 
 .recipe-cards {
@@ -837,6 +846,9 @@ li:nth-child(3) .explore-link:hover {
   color: #555;
 }
 
+#recipe-title {
+  font-size: 3em;
+}
 /* Responsive layout for smaller screens */
 @media (max-width: 768px) {
   .recipe-card {

@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Home | Recipes</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -178,10 +179,10 @@
 
           <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
-            $servername = "localhost";
-            $userName = "root";
-            $password = "";
-            $dbname = "recipe_website_schema";
+            $servername = "CS3-DEV.ICT.RU.AC.ZA";
+            $userName = "TheOGs";
+            $password = "M7fiB7C6";
+            $dbname = "theogs";
             $conn = new mysqli($servername, $userName, $password, $dbname);
             if ($conn->connect_error) {
               die("Connection failed: " . $conn->connect_error);
@@ -244,10 +245,7 @@
   <footer>
     <section class="container">
       <p>&copy; The OG's 2024. All rights reserved.</p>
-      <address role="contentinfo">
-        Email: <a href="mailto:recipe@gmail.com">recipe@gmail.com</a><br />
-        Phone: <a href="tel:+27451234567">+27 45 123 4567</a>
-      </address>
+
       <!--Begin social buttons-->
 
       <!--TODO replace links with relevant locations-->
@@ -258,6 +256,8 @@
         <a href="https://www.github.com" class="social-button github" aria-label="GitHub" target="_blank"></a>
       </div>
       <!--End social buttons-->
+
+
     </section>
   </footer>
   <script src="script.js"></script>

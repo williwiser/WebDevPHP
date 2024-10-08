@@ -57,6 +57,8 @@
 
   <!-- Begin Recipe Dashboard -->
   <section class="recipe-dashboard container">
+    <h1>What's Popular</h1>
+    <hr>
     <div id="recipe-cards" class="recipe-cards"></div>
   </section>
   <!-- End Recipe Dashboard -->
@@ -64,10 +66,6 @@
   <footer>
     <section class="container">
       <p>&copy; The OG's 2024. All rights reserved.</p>
-      <address role="contentinfo">
-        Email: <a href="mailto:recipe@gmail.com">recipe@gmail.com</a><br />
-        Phone: <a href="tel:+27451234567">+27 45 123 4567</a>
-      </address>
       <!--Begin social buttons-->
 
       <!--TODO replace links with relevant locations-->

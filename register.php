@@ -52,105 +52,105 @@
       <div class="bg">
         <section class="container">
           <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-<?php
+            <?php
 
-$servername = "localhost";
-$username = "root";
-$password = ""; // Default password for XAMPP MySQL
-$dbname = "recipe_website_schema";
+            $servername = "CS3-DEV.ICT.RU.AC.ZA";
+            $username = "TheOGs";
+            $password = "M7fiB7C6"; // Default password for XAMPP MySQL
+            $dbname = "theogs";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Initialize variables
-$userName = $password = $email = $userType = "";
-$userNameErr = $passwordErr = $emailErr = $termsErr = $userTypeErr = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Clean and assign form inputs
-    $userName = cleanInput($_POST["username"]);
-    $email = cleanInput($_POST["email"]);
-    $password = cleanInput($_POST["password"]);
-    $userType = isset($_POST["user_type"]) ? cleanInput($_POST["user_type"]) : '';
-    $terms = isset($_POST["terms"]);
-
-    // Validate inputs
-    if (empty($userName)) {
-        $userNameErr = "* User name required";
-    }
-    if (empty($email)) {
-        $emailErr = "* Email required";
-    }
-    if (empty($password)) {
-        $passwordErr = "* Password required";
-    }
-    if (empty($userType)) {
-        $userTypeErr = "* User type required";
-    }
-    if (!$terms) {
-        $termsErr = "Please agree to the terms and conditions to proceed.";
-    }
-
-    // Proceed only if no validation errors
-    if (empty($userNameErr) && empty($emailErr) && empty($passwordErr) && empty($userTypeErr) && empty($termsErr)) {
-        // Check if the email already exists in the database
-        $checkEmail = $conn->prepare("SELECT email FROM users WHERE email = ?");
-        $checkEmail->bind_param("s", $email);
-        $checkEmail->execute();
-        $checkEmail->store_result();
-
-        if ($checkEmail->num_rows > 0) {
-            echo "Email is already registered. Please use a different email.";
-        } else {
-            // Hash the password securely
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            // Prepare and bind
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $userName, $email, $hashedPassword, $userType);
-
-            // Execute the statement
-            if ($stmt->execute()) {
-                // Registration successful, now log the user in
-                session_start();
-                $_SESSION["loggedin"] = true;
-                $_SESSION["user_id"] = $stmt->insert_id; // Get the ID of the inserted user
-                $_SESSION["username"] = $userName;
-                $_SESSION["user_type"] = $userType;
-
-                // Redirect to index.php
-                header("Location: index.php");
-                exit;
-            } else {
-                echo "Error: " . $stmt->error;
+            // Check connection
+            if ($conn->connect_error) {
+              die("Connection failed: " . $conn->connect_error);
             }
 
-            // Close the statement
-            $stmt->close();
-        }
+            // Initialize variables
+            $userName = $password = $email = $userType = "";
+            $userNameErr = $passwordErr = $emailErr = $termsErr = $userTypeErr = "";
 
-        // Close the email check statement
-        $checkEmail->close();
-    } else {
-        echo "All fields are required!";
-    }
-}
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              // Clean and assign form inputs
+              $userName = cleanInput($_POST["username"]);
+              $email = cleanInput($_POST["email"]);
+              $password = cleanInput($_POST["password"]);
+              $userType = isset($_POST["user_type"]) ? cleanInput($_POST["user_type"]) : '';
+              $terms = isset($_POST["terms"]);
 
-// Close the connection
-$conn->close();
+              // Validate inputs
+              if (empty($userName)) {
+                $userNameErr = "* User name required";
+              }
+              if (empty($email)) {
+                $emailErr = "* Email required";
+              }
+              if (empty($password)) {
+                $passwordErr = "* Password required";
+              }
+              if (empty($userType)) {
+                $userTypeErr = "* User type required";
+              }
+              if (!$terms) {
+                $termsErr = "Please agree to the terms and conditions to proceed.";
+              }
 
-function cleanInput($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+              // Proceed only if no validation errors
+              if (empty($userNameErr) && empty($emailErr) && empty($passwordErr) && empty($userTypeErr) && empty($termsErr)) {
+                // Check if the email already exists in the database
+                $checkEmail = $conn->prepare("SELECT email FROM users WHERE email = ?");
+                $checkEmail->bind_param("s", $email);
+                $checkEmail->execute();
+                $checkEmail->store_result();
+
+                if ($checkEmail->num_rows > 0) {
+                  echo "Email is already registered. Please use a different email.";
+                } else {
+                  // Hash the password securely
+                  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+                  // Prepare and bind
+                  $stmt = $conn->prepare("INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, ?)");
+                  $stmt->bind_param("ssss", $userName, $email, $hashedPassword, $userType);
+
+                  // Execute the statement
+                  if ($stmt->execute()) {
+                    // Registration successful, now log the user in
+                    session_start();
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["user_id"] = $stmt->insert_id; // Get the ID of the inserted user
+                    $_SESSION["username"] = $userName;
+                    $_SESSION["user_type"] = $userType;
+
+                    // Redirect to index.php
+                    header("Location: index.php");
+                    exit;
+                  } else {
+                    echo "Error: " . $stmt->error;
+                  }
+
+                  // Close the statement
+                  $stmt->close();
+                }
+
+                // Close the email check statement
+                $checkEmail->close();
+              } else {
+                echo "All fields are required!";
+              }
+            }
+
+            // Close the connection
+            $conn->close();
+
+            function cleanInput($data)
+            {
+              $data = trim($data);
+              $data = stripslashes($data);
+              $data = htmlspecialchars($data);
+              return $data;
+            }
 
 
             ?>
