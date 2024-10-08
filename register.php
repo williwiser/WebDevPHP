@@ -53,6 +53,55 @@
         <section class="container">
           <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
+            
+            // Include database configuration
+            $servername = "localhost";
+            $username = "root";
+            $password = ""; // Default password for XAMPP MySQL
+            $dbname = "recipe_website_schema";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Check if the form is submitted
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $user = $_POST['username'];
+                $email = $_POST['email'];
+                $pass = $_POST['password'];
+
+                // Validate input (basic validation for example purposes)
+                if (!empty($user) && !empty($email) && !empty($pass)) {
+                    // Hash the password securely
+                    $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+
+                    // Prepare and bind
+                    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+                    $stmt->bind_param("sss", $user, $email, $hashedPassword);
+
+                    // Execute the statement
+                    if ($stmt->execute()) {
+                        echo "Registration successful!";
+                    } else {
+                        echo "Error: " . $stmt->error;
+                    }
+
+                    // Close the statement
+                    $stmt->close();
+                } else {
+                    echo "All fields are required!";
+                }
+            }
+
+            // Close the connection
+            $conn->close();
+
+
+
             $userName = $password = $email = "";
             $userNameErr = $passwordErr = $emailErr = $termsErr = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
