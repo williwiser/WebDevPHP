@@ -9,3 +9,8 @@ CREATE TABLE users (
 SELECT * FROM users;
 
 ALTER TABLE users ADD COLUMN user_type ENUM('normal','editor') NOT NULL DEFAULT 'normal';
+CREATE TABLE Newsletter(
+	email varchar(255) NOT NULL,
+    frequency varchar(255) NOT NULL,
+    PRIMARY KEY (email)
+);
