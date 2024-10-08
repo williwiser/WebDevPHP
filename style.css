@@ -77,6 +77,10 @@ label {
   font-family: Roboto-Regular;
 }
 
+header span {
+  font-family: Roboto-Bold;
+  font-weight: bold;
+}
 a {
   text-decoration: none;
 }
