@@ -1159,7 +1159,7 @@ label {
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
     /* bottom, image */ url("img/avocado-bg.jpg");
-  padding-top: 3rem;
+  background-size: cover;
 }
 
 #login-sn .container {

@@ -178,6 +178,15 @@
 
           <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
+            // $servername = "CS3-DEV.ICT.RU.AC.ZA";
+            // $userName = "TheOGs";
+            // $password = "M7fiB7C6";
+            // $conn = new mysqli($servername, $userName, $password);
+            // if ($conn->connect_error) {
+            //   die("Connection failed: " . $conn->connect_error);
+            // } else {
+            //   echo "Connected successfully!";
+            // }
             $email = "";
             $emailErr = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
