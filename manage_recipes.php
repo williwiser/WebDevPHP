@@ -13,106 +13,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Recipes | Recipes</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
-                /* bottom, image */
-                url("img/avocado-bg.jpg") no-repeat center center/cover;
-            height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-        }
-
-        header h1 {
-            font-size: 48px;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Search Bar Styles */
-        #search-bar {
-            padding: 12px;
-            width: 60%;
-            max-width: 600px;
-            border-radius: 25px;
-            border: none;
-            margin-top: 20px;
-            font-size: 16px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        #search-bar:focus {
-            outline: none;
-            border: 2px solid #ccc;
-        }
-
-        /* Manage Options Button Styles */
-        .manage-options {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            padding: 20px;
-        }
-
-        .manage-options button {
-            padding: 12px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #28a745;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .manage-options button:hover {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
-
-        .manage-options button:active {
-            background-color: #1e7e34;
-        }
-
-        /* Search Results Styles */
-        #search-results {
-            margin-top: 20px;
-            padding: 20px;
-        }
-
-        #search-results div {
-            background-color: #fff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #search-results div:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -145,9 +46,10 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
         </ul>
     </nav>
 
-    <header>
+    <header class="manage-recipes-header">
         <h1>Manage Recipes</h1>
-        <input type="text" id="search-bar" placeholder="Search for a recipe..." onkeyup="searchRecipes()" />
+        <input type="text" id="search-bar" class="manage-recipes-search-bar" placeholder="Search for a recipe..."
+            onkeyup="searchRecipes()" />
     </header>
 
     <section class="manage-options">
@@ -156,7 +58,8 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
         <button onclick="window.location.href='delete_recipe.php'">Delete Recipe</button>
     </section>
 
-    <div id="search-results"></div>
+    <div id="search-results" class="manage-recipes-container"></div> <!-- Container for search results -->
+
 
     <script src="manage_recipes.js"></script>
 </body>
