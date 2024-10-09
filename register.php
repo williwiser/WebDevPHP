@@ -34,6 +34,9 @@
           <a href="signIn.php" class="nav-link">Sign In</a>
         </li>
       <?php } ?>
+      <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
+        <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
+      <?php endif; ?>
     </ul>
   </nav>
 

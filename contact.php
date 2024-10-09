@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,10 +40,11 @@ session_start();
         <li class="nav-item">
           <a href="signIn.php" class="nav-link">Sign In</a>
         </li>
-      <?php } ?>
-    </ul>
-  </nav>
-  <!--end navbar-->
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
+          <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
+        <?php endif; ?>
+      </ul>
+    </nav>
 
   <!--start Sidebar-->
   <!-- Toggle checkbox (hidden) -->
