@@ -31,7 +31,7 @@ session_start();
       <li class="nav-item">
         <a href="contact.php" class="nav-link">Contact</a>
       </li>
-      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+      <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
         <li class="nav-item">
           <a href="account.php" class="nav-link">My Account</a>
         </li>
@@ -192,10 +192,10 @@ session_start();
           <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
             $servername = "localhost";
-            $userName = "root";
+            $username = "root";
             $password = "";
-            $dbName = "recipe_website_schema";
-            $conn = new mysqli($servername, $userName, $password, $dbname);
+            $dbname = "recipe_website_schema";
+            $conn = new mysqli($servername, $username, $password, $dbname);
             if ($conn->connect_error) {
               die("Connection failed: " . $conn->connect_error);
             }

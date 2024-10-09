@@ -1,11 +1,10 @@
 <?php
 session_start();
-session_start();
 // Database connection
 $servername = "localhost";
-$userName = "root";
+$username = "root";
 $password = "";
-$dbName = "recipe_website_schema";
+$dbname = "recipe_website_schema";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -61,7 +60,7 @@ $conn->close();
       <li class="nav-item">
         <a href="contact.php" class="nav-link">Contact</a>
       </li>
-      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+      <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
         <li class="nav-item">
           <a href="account.php" class="nav-link">My Account</a>
         </li>

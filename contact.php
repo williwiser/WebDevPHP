@@ -32,7 +32,7 @@ session_start();
       <li class="nav-item">
         <a href="contact.php" class="nav-link active">Contact</a>
       </li>
-      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+      <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
         <li class="nav-item">
           <a href="account.php" class="nav-link">My Account</a>
         </li>

@@ -4,7 +4,7 @@ session_start();
 // Database connection
 $servername = "localhost";
 $username = "root";
-$password = ""; // Default password for XAMPP MySQL
+$password = "";
 $dbname = "recipe_website_schema";
 
 // Create connection
@@ -100,7 +100,15 @@ function cleanInput($data)
       <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
       <li class="nav-item"><a href="recipes.php" class="nav-link">Recipes</a></li>
       <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-      <li class="nav-item"><a href="signIn.php" class="nav-link active">Sign In</a></li>
+      <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+        <li class="nav-item">
+          <a href="account.php" class="nav-link">My Account</a>
+        </li>
+      <?php } else { ?>
+        <li class="nav-item">
+          <a href="signIn.php" class="nav-link active">Sign In</a>
+        </li>
+      <?php } ?>
       <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
         <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
       <?php endif; ?>

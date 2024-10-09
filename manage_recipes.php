@@ -8,22 +8,40 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Recipes | Recipes</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
+
 <body>
-<nav class="navbar">
+    <nav class="navbar">
         <ul class="nav-list">
-            <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="recipes.php" class="nav-link">Recipes</a></li>
-            <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-            <li class="nav-item"><a href="signIn.php" class="nav-link active">Sign In</a></li>
+            <li class="nav-item">
+                <a href="index.php" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.php" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="recipes.php" class="nav-link">Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.php" class="nav-link">Contact</a>
+            </li>
+            <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+                <li class="nav-item">
+                    <a href="account.php" class="nav-link">My Account</a>
+                </li>
+            <?php } else { ?>
+                <li class="nav-item">
+                    <a href="signIn.php" class="nav-link">Sign In</a>
+                </li>
+            <?php } ?>
             <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
-              <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
+                <li class="nav-item"><a href="manage_recipes.php" class="nav-link active">Manage Recipes</a></li>
             <?php endif; ?>
         </ul>
     </nav>
@@ -43,4 +61,5 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
 
     <script src="manage_recipes.js"></script>
 </body>
+
 </html>

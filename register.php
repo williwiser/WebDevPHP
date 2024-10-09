@@ -14,7 +14,7 @@
   <nav class="navbar">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="index.php" class="nav-link active">Home</a>
+        <a href="index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
         <a href="about.php" class="nav-link">About</a>
@@ -25,13 +25,13 @@
       <li class="nav-item">
         <a href="contact.php" class="nav-link">Contact</a>
       </li>
-      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+      <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
         <li class="nav-item">
           <a href="account.php" class="nav-link">My Account</a>
         </li>
       <?php } else { ?>
         <li class="nav-item">
-          <a href="signIn.php" class="nav-link">Sign In</a>
+          <a href="signIn.php" class="nav-link active">Sign In</a>
         </li>
       <?php } ?>
       <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
@@ -66,9 +66,9 @@
             <?php
 
             $servername = "localhost";
-            $userName = "root";
+            $username = "root";
             $password = "";
-            $dbName = "recipe_website_schema";
+            $dbname = "recipe_website_schema";
 
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
