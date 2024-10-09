@@ -424,7 +424,6 @@ form {
   max-width: 600px;
   padding: 1rem;
   width: 100%;
-  border: 1px solid #eac879;
   border-radius: 5px;
   margin-bottom: 2rem;
 }
@@ -1209,8 +1208,6 @@ label {
 }
 
 #my-account header {
-  background: none;
-  color: #333;
   padding: 0;
   padding-top: 2.2rem;
 }
@@ -1233,11 +1230,18 @@ label {
 .prof-info {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   margin-bottom: 2rem;
-  background-color: #ffffff;
+  background: #f5f5f5;
   padding: 1rem;
   border-radius: 5px;
+}
+
+.prof-cont {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 #my-account main nav {
@@ -1257,6 +1261,11 @@ label {
   box-sizing: border-box;
   padding: 1rem 2rem;
   color: white;
+}
+
+#my-account main nav ul li a:hover {
+  background-color: rgb(37, 37, 37);
+  transition: all 300ms ease-in;
 }
 
 #my-account select {
@@ -1283,7 +1292,7 @@ label {
   margin-top: 1rem;
 }
 
-#my-account .card {
+#my-account .no-hover-card {
   max-width: none;
 }
 .acc-group {
@@ -1294,4 +1303,19 @@ label {
 
 #my-account main .active {
   background-color: #848484;
+}
+
+#logout {
+  border: none;
+  padding: 0;
+  width: min-content;
+  margin: 0;
+}
+
+#logout input {
+  padding: 0.8rem 2rem;
+  border-radius: 80px;
+  background-color: #28a745;
+  color: #fff;
+  font-weight: bold;
 }

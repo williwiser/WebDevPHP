@@ -1,23 +1,29 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact | Recipes</title>
+  <!--Makes website more compatible on mobile browsers-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Home | Recipes</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <script src="validation.js"></script>
   <script src="navigator-info.js"></script>
+  <!--start navbar-->
   <nav class="navbar">
     <ul class="nav-list">
       <li class="nav-item">
         <a href="index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="about.html" class="nav-link">About</a>
+        <a href="about.html" class="nav-link ">About</a>
       </li>
       <li class="nav-item">
         <a href="recipes.php" class="nav-link">Recipes</a>
@@ -25,11 +31,18 @@
       <li class="nav-item">
         <a href="contact.php" class="nav-link active">Contact</a>
       </li>
-      <li class="nav-item">
-        <a href="signIn.php" class="nav-link">Sign In</a>
-      </li>
+      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+        <li class="nav-item">
+          <a href="account.php" class="nav-link">My Account</a>
+        </li>
+      <?php } else { ?>
+        <li class="nav-item">
+          <a href="signIn.php" class="nav-link">Sign In</a>
+        </li>
+      <?php } ?>
     </ul>
   </nav>
+  <!--end navbar-->
 
   <!--start Sidebar-->
   <!-- Toggle checkbox (hidden) -->

@@ -1,9 +1,10 @@
 <?php
+session_start();
 // Database connection
 $servername = "localhost";
-$username = "root";
-$password = ""; // Adjust if needed
-$dbname = "recipe_website_schema";
+$userName = "root";
+$password = "";
+$dbName = "recipe_website_schema";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -51,7 +52,7 @@ $conn->close();
         <a href="index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="about.html" class="nav-link">About</a>
+        <a href="about.php" class="nav-link">About</a>
       </li>
       <li class="nav-item">
         <a href="recipes.php" class="nav-link active">Recipes</a>
@@ -59,9 +60,15 @@ $conn->close();
       <li class="nav-item">
         <a href="contact.php" class="nav-link">Contact</a>
       </li>
-      <li class="nav-item">
-        <a href="signIn.php" class="nav-link">Sign In</a>
-      </li>
+      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+        <li class="nav-item">
+          <a href="account.php" class="nav-link">My Account</a>
+        </li>
+      <?php } else { ?>
+        <li class="nav-item">
+          <a href="signIn.php" class="nav-link">Sign In</a>
+        </li>
+      <?php } ?>
     </ul>
   </nav>
 
@@ -92,7 +99,6 @@ $conn->close();
   <section class="recipe-dashboard container">
     <h1>What's Popular</h1>
     <hr>
-    <div id="recipe-cards" class="recipe-cards"></div>
     <div id="recipe-cards" class="recipe-cards">
       <?php if (!empty($recipes)): ?>
         <?php foreach ($recipes as $recipe): ?>

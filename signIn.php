@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,7 @@
         <a href="index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="about.html" class="nav-link">About</a>
+        <a href="about.php" class="nav-link">About</a>
       </li>
       <li class="nav-item">
         <a href="recipes.php" class="nav-link">Recipes</a>
@@ -23,9 +24,15 @@
       <li class="nav-item">
         <a href="contact.php" class="nav-link">Contact</a>
       </li>
-      <li class="nav-item">
-        <a href="signIn.php" class="nav-link active">Sign In</a>
-      </li>
+      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+        <li class="nav-item">
+          <a href="account.php" class="nav-link">My Account</a>
+        </li>
+      <?php } else { ?>
+        <li class="nav-item">
+          <a href="signIn.php" class="nav-link active">Sign In</a>
+        </li>
+      <?php } ?>
     </ul>
   </nav>
 
@@ -58,10 +65,10 @@
             //------------------------------------------------------------------------------------------------------------
 //Add database connection here
             
-            $servername = "CS3-DEV.ICT.RU.AC.ZA";
-            $username = "TheOGs";
-            $password = "M7fiB7C6"; // Default password for XAMPP MySQL
-            $dbname = "theogs";
+            $servername = "localhost";
+            $userName = "root";
+            $password = "";
+            $dbName = "recipe_website_schema";
 
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);

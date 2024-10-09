@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php session_start();
+$servername = "localhost";
+$userName = "root";
+$password = "";
+$dbName = "recipe_website_schema";
+$conn = new mysqli($servername, $userName, $password, $dbName);
+$user_id = $_SESSION["user_id"];
+$stmt = $conn->prepare("SELECT username FROM users WHERE user_id = ?");
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$username = $stmt->get_result();
+
+$stmt = $conn->prepare("SELECT email FROM users WHERE user_id = ?");
+$stmt->bind_param("s", $user_id);
+$stmt->execute();
+$email = $stmt->get_result();
+?>
 
 <head>
   <meta charset="UTF-8" />
@@ -17,7 +34,7 @@
         <a href="index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="about.html" class="nav-link">About</a>
+        <a href="about.php" class="nav-link">About</a>
       </li>
       <li class="nav-item">
         <a href="recipes.php" class="nav-link">Recipes</a>
@@ -25,9 +42,15 @@
       <li class="nav-item">
         <a href="contact.php" class="nav-link">Contact</a>
       </li>
-      <li class="nav-item">
-        <a href="signIn.php" class="nav-link active">Account</a>
-      </li>
+      <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+        <li class="nav-item">
+          <a href="account.php" class="nav-link active">My Account</a>
+        </li>
+      <?php } else { ?>
+        <li class="nav-item">
+          <a href="signIn.php" class="nav-link">Sign In</a>
+        </li>
+      <?php } ?>
     </ul>
   </nav>
 
@@ -57,12 +80,29 @@
 
   <main>
     <section class="container">
-      <article class="prof-info">
-        <img class="prof-pic" src="img/avatar-icon.png" />
-        <hgroup>
-          <h1>ian_smithie</h1>
-          <p>james@gmail.com</p>
-        </hgroup>
+      <article class="prof-info no-hover-card">
+        <div class="prof-cont">
+          <img class="prof-pic" src="img/avatar-icon.png" />
+          <hgroup>
+            <h1><?php while ($row = $username->fetch_assoc()) {
+              echo $row['username'];
+            } ?></h1>
+            <p><?php while ($row = $email->fetch_assoc()) {
+              echo $row['email'];
+            } ?></p>
+          </hgroup>
+        </div>
+        <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          // remove all session variables
+          session_unset();
+          // destroy the session
+          session_destroy();
+          header("Location: index.php");
+          exit;
+        } ?>
+        <form id="logout" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+          <input type="submit" id="logout" value="Log out">
+        </form>
       </article>
       <div class="acc-group">
         <nav>
@@ -75,11 +115,10 @@
         </nav>
 
         <section class="info">
-          <form class="personal-info-frm card">
+          <form class="personal-info-frm no-hover-card">
             <h1>Personal Details</h1>
             <label for="username">User Name</label>
-            <input type="text" value="Ian Smith" />
-
+            <input type="text" value="<?php echo $_SESSION["username"]; ?>" />
             <label for="username">Email</label>
             <input type="email" value="james@gmail.com" disabled />
             <input type="submit" value="Save" />
