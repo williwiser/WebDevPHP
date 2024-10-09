@@ -1,36 +1,35 @@
 <?php
 header('Content-Type: application/json');
-session_start();
 
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = ""; // Adjust if needed
-$dbname = "recipe_website_schema";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
+$conn = new mysqli('localhost', 'root', '', 'recipe_website_schema');
 if ($conn->connect_error) {
-    die(json_encode(['error' => 'Database connection failed.']));
+    die("Connection failed: " . $conn->connect_error);
 }
 
-$query = isset($_GET['query']) ? '%' . $_GET['query'] . '%' : '%';
+// Check if a search query is provided
+$query = isset($_GET['query']) ? trim($_GET['query']) : '';
 
-// Fetch recipes matching the search query
-$stmt = $conn->prepare("SELECT recipe_id, title, image, rating, description FROM recipes WHERE title LIKE ?");
-$stmt->bind_param("s", $query);
+if ($query === '') {
+    // If no search query, return the top 20 recipes
+    $stmt = $conn->prepare("SELECT * FROM recipes ORDER BY recipe_id DESC LIMIT 20");
+} else {
+    // If a search query is provided, search for matching recipes
+    $searchTerm = '%' . $query . '%';
+    $stmt = $conn->prepare("SELECT * FROM recipes WHERE title LIKE ? ORDER BY recipe_id DESC LIMIT 20");
+    $stmt->bind_param("s", $searchTerm);
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
 
 $recipes = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $recipes[] = $row;
-    }
+while ($row = $result->fetch_assoc()) {
+    $recipes[] = $row;
 }
 
 $stmt->close();
 $conn->close();
 
-// Output the recipes as JSON
 echo json_encode($recipes);
+?>
