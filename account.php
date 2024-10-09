@@ -89,7 +89,7 @@ $name = "";
 
   <main>
     <section class="container">
-      <article class="prof-info no-hover-card">
+      <article class="prof-info">
         <div class="prof-cont">
           <img class="prof-pic" src="img/avatar-icon.png" />
           <hgroup>
@@ -117,15 +117,15 @@ $name = "";
       <div class="acc-group">
         <nav>
           <ul>
-            <li><a href="#" class="active">Personal Details</a></li>
-            <li><a href="#">My Recipes</a></li>
-            <li><a href="#">Favorite Recipes</a></li>
-            <li><a href="SubmitRecipe.html"> + New Recipe</a></li>
+            <li><a href="account.php" class="active">Personal Details</a></li>
+            <li><a href="my_reviews.php">My Reviews</a></li>
+            <li><a href="newsletter.php">Newsletter</a></li>
+            <li><a href="delete_account.php">Delete Account</a></li>
           </ul>
         </nav>
 
         <section class="info">
-          <form class="personal-info-frm no-hover-card">
+          <form class="personal-info-frm">
             <h1>Personal Details</h1>
             <label for="username">User Name</label>
             <?php $row = $username->fetch_assoc(); ?>

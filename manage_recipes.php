@@ -47,17 +47,18 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
     </nav>
 
     <header class="manage-recipes-header">
-    <h1>Manage Recipes</h1>
-    <input type="text" id="search-bar" class="manage-recipes-search-bar" placeholder="Search for a recipe..." onkeyup="searchRecipes()" />
+        <h1>Manage Recipes</h1>
+        <input type="text" id="search-bar" class="manage-recipes-search-bar" placeholder="Search for a recipe..."
+            onkeyup="searchRecipes()" />
     </header>
 
-<section class="manage-options">
-    <button onclick="window.location.href='add_recipe.php'">Add Recipe</button>
-    <button onclick="window.location.href='modify_recipe.php'">Modify Recipe</button>
-    <button onclick="window.location.href='delete_recipe.php'">Delete Recipe</button>
-</section>
+    <section class="manage-options">
+        <button onclick="window.location.href='add_recipe.php'">Add Recipe</button>
+        <button onclick="window.location.href='modify_recipe.php'">Modify Recipe</button>
+        <button onclick="window.location.href='delete_recipe.php'">Delete Recipe</button>
+    </section>
 
-<div id="search-results" class="manage-recipes-container"></div> <!-- Container for search results -->
+    <div id="search-results" class="manage-recipes-container"></div> <!-- Container for search results -->
 
 
     <script src="manage_recipes.js"></script>
