@@ -12,10 +12,9 @@ async function searchRecipes() {
                 const recipeCard = document.createElement("div");
                 recipeCard.classList.add("recipe-card");
 
-                // Set the rating or default to "N/A"
-                const rating = recipe.rating ? recipe.rating : "N/A";
+                // Set the rating or default to "0"
+                const rating = recipe.rating ? recipe.rating : "0";
 
-                // Add inner HTML for the recipe card
                 recipeCard.innerHTML = `
                     <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image">
                     <h2 class="recipe-title">${recipe.title}</h2>
@@ -23,12 +22,10 @@ async function searchRecipes() {
                     <p class="recipe-description">${recipe.description}</p>
                 `;
 
-                // Add click event to navigate to the recipe detail page
                 recipeCard.addEventListener("click", () => {
                     window.location.href = `recipe-detail.php?recipe_id=${recipe.recipe_id}`;
                 });
 
-                // Append the card to the search results
                 searchResults.appendChild(recipeCard);
             });
         } else {

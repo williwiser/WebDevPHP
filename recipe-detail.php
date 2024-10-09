@@ -26,7 +26,7 @@ if (isset($_GET['recipe_id'])) {
     $ingredientsResult = $stmt->get_result();
     $ingredients = [];
     while ($row = $ingredientsResult->fetch_assoc()) {
-      $ingredients[] = $row['ingredient'];
+      $ingredients[] = htmlspecialchars($row['ingredient']);
     }
     $stmt->close();
 
@@ -37,7 +37,7 @@ if (isset($_GET['recipe_id'])) {
     $instructionsResult = $stmt->get_result();
     $instructions = [];
     while ($row = $instructionsResult->fetch_assoc()) {
-      $instructions[] = $row['instruction'];
+      $instructions[] = htmlspecialchars($row['instruction']);
     }
     $stmt->close();
 
@@ -51,63 +51,47 @@ if (isset($_GET['recipe_id'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="e">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recipe-Detail | Recipes</title>
-  <link rel="stylesheet" type="text/css" href="style.css" /> <!--links css with page-->
+  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
-  <!--start navbar-->
+  <!-- Navbar -->
   <nav class="navbar">
     <ul class="nav-list">
-      <li class="nav-item">
-        <a href="index.php" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item">
-        <a href="about.php" class="nav-link">About</a>
-      </li>
-      <li class="nav-item">
-        <a href="recipes.php" class="nav-link active">Recipes</a>
-      </li>
-      <li class="nav-item">
-        <a href="contact.php" class="nav-link">Contact</a>
-      </li>
+      <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="recipes.php" class="nav-link active">Recipes</a></li>
+      <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
       <?php if (isset($_SESSION['username']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
-        <li class="nav-item">
-          <a href="account.php" class="nav-link">My Account</a>
-        </li>
+        <li class="nav-item"><a href="account.php" class="nav-link">My Account</a></li>
       <?php } else { ?>
-        <li class="nav-item">
-          <a href="signIn.php" class="nav-link">Sign In</a>
-        </li>
+        <li class="nav-item"><a href="signIn.php" class="nav-link">Sign In</a></li>
       <?php } ?>
       <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
         <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
       <?php endif; ?>
     </ul>
   </nav>
-  <!--end navbar-->
-  <!--start Sidebar-->
-  <!-- Toggle checkbox (hidden) -->
-  <input type="checkbox" id="toggle-sidebar" class="toggle-checkbox">
 
-  <!-- Label acting as a button -->
+  <!-- Sidebar -->
+  <input type="checkbox" id="toggle-sidebar" class="toggle-checkbox">
   <label for="toggle-sidebar" class="toggle-button"></label>
   <div class="sidebar">
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.php">About</a></li>
+        <li><a href="contact.php">Contact</a></li>
       </ul>
     </nav>
   </div>
-  <!--end Sidebar-->
+
   <?php if (isset($error_message)): ?>
     <p><?php echo htmlspecialchars($error_message); ?></p>
   <?php else: ?>
@@ -123,14 +107,14 @@ if (isset($_GET['recipe_id'])) {
       <h2>Ingredients</h2>
       <ul id="recipe-ingredients">
         <?php foreach ($ingredients as $ingredient): ?>
-          <li><?php echo htmlspecialchars($ingredient); ?></li>
+          <li><?php echo $ingredient; ?></li>
         <?php endforeach; ?>
       </ul>
 
       <h2>Instructions</h2>
       <ol id="recipe-instructions">
         <?php foreach ($instructions as $instruction): ?>
-          <li><?php echo htmlspecialchars($instruction); ?></li>
+          <li><?php echo $instruction; ?></li>
         <?php endforeach; ?>
       </ol>
     </section>
