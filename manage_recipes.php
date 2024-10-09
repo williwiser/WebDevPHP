@@ -23,11 +23,13 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
             background-color: #f4f4f4;
         }
 
-       
+
 
         /* Header Styles */
         header {
-            background: url('img/avocado-bg.jpg') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+                /* bottom, image */
+                url("img/avocado-bg.jpg") no-repeat center center/cover;
             height: 300px;
             display: flex;
             flex-direction: column;
