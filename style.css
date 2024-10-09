@@ -17,8 +17,8 @@
   margin: 0;
 }
 
- /* Center align the overlay content */
- .overlay {
+/* Center align the overlay content */
+.overlay {
   display: flex; /* Enable flexbox */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center items horizontally */
@@ -31,6 +31,7 @@
 .search-bar {
   display: flex; /* Flexbox for horizontal alignment */
   align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
   margin: 20px 0; /* Add vertical space */
 }
 
@@ -48,7 +49,7 @@ button {
   padding: 10px 20px; /* Padding for the button */
   border: none; /* Remove default border */
   border-radius: 20px; /* Rounded edges for oval shape */
-  background-color: #28a745; /* Green background */
+  background-color: #a5a728; /* Green background */
   color: white; /* Text color */
   font-size: 16px; /* Font size */
   cursor: pointer; /* Pointer cursor on hover */
@@ -59,6 +60,43 @@ button {
 button:hover {
   background-color: #218838; /* Darker green on hover */
 }
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.unique-recipe-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.unique-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 15px;
+  width: 200px; /* Adjust the width as needed */
+  text-align: center;
+}
+
+.unique-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px 5px 0 0; /* Rounded top corners */
+}
+
+.rating {
+  font-size: 20px; /* Adjust the size as needed */
+  color: #a5a728; /* Color for the filled stars */
+}
+
+.star {
+  margin: 0 2px; /* Add some space between stars */
+}
+
+
+/*End of kaizer's search bar code*/
 
 h1 {
   font-family: Roboto-Bold;
@@ -71,10 +109,16 @@ a,
 p,
 textarea,
 input,
+span,
+small,
 label {
   font-family: Roboto-Regular;
 }
 
+header span {
+  font-family: Roboto-Bold;
+  font-weight: bold;
+}
 a {
   text-decoration: none;
 }
@@ -418,7 +462,6 @@ form {
   max-width: 600px;
   padding: 1rem;
   width: 100%;
-  border: 1px solid #eac879;
   border-radius: 5px;
   margin-bottom: 2rem;
 }
@@ -472,17 +515,20 @@ footer p,
 footer address,
 .social-buttons {
   margin: 5px 0;
+  text-align: center;
 }
 
 footer .container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 1rem; /* Adjust padding as needed */
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 3rem; /* Adjust padding as needed */
 }
 
-address {
-  float: right;
+footer address {
+  display: inline-block;
 }
 
 /* end footer */
@@ -490,6 +536,10 @@ address {
 
 /********************************* HOME PAGE ********************************/
 .card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.no-hover-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
@@ -779,7 +829,13 @@ li:nth-child(3) .explore-link:hover {
 /*Recipe Page----------------------------------------------------------------------------------------*/
 .recipe-dashboard {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+}
+
+.recipe-dashboard h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 2rem;
 }
 
 .recipe-cards {
@@ -827,6 +883,9 @@ li:nth-child(3) .explore-link:hover {
   color: #555;
 }
 
+#recipe-title {
+  font-size: 3em;
+}
 /* Responsive layout for smaller screens */
 @media (max-width: 768px) {
   .recipe-card {
@@ -1016,7 +1075,7 @@ li:nth-child(3) .explore-link:hover {
 /*-----------------------------------------------------------------------------------------------------------*/
 /*Recipe-Detail*/
 
-#myHeader{
+#myHeader {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1030,8 +1089,8 @@ li:nth-child(3) .explore-link:hover {
 }
 
 #recipe-detail {
-  width : 35%;
-  height : 35%;
+  width: 35%;
+  height: 35%;
   border: black solid 1px;
 }
 
@@ -1052,7 +1111,7 @@ li:nth-child(3) .explore-link:hover {
   text-align: center;
 }
 
-#myh2{
+#myh2 {
   font-size: 24px;
   color: #ff5722;
   margin-bottom: 10px;
@@ -1065,4 +1124,236 @@ li:nth-child(3) .explore-link:hover {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+  color: red;
+  font-size: 1rem;
+}
+
+#signIn main {
+  height: 100vh;
+
+  background-size: cover;
+}
+
+#signIn section {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+#signIn header {
+  background: none;
+  padding: 10rem 0;
+  color: #333;
+}
+
+#signIn form {
+  border: none;
+  background-color: rgb(245, 245, 245);
+  padding: 2% 3%;
+  max-width: 25rem;
+}
+
+#signIn form h1 {
+  font-size: clamp(3em, 80%, 2em);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#signIn select {
+  padding: 0.5rem;
+}
+
+label {
+  align-items: center;
+}
+#signIn form p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #605e5e;
+}
+
+#signIn form p:first-child {
+  margin-bottom: 2rem;
+}
+
+#signIn form input,
+#signIn form select {
+  box-sizing: border-box;
+  margin-top: clamp(0.2rem, 20%, 1rem);
+  width: 100%;
+}
+
+#signIn form p:last-child {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.terms {
+  margin-top: clamp(0.2rem, 20%, 1rem);
+}
+
+#signIn form input[type="submit"] {
+  width: 80%;
+  align-self: center;
+}
+
+#signIn form input[type="checkbox"] {
+  width: min-content;
+  box-sizing: border-box;
+  display: inline;
+  margin-top: 0;
+}
+
+.bg {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    /* bottom, image */ url("img/avocado-bg.jpg");
+  background-size: cover;
+}
+
+#login-sn .container {
+  padding: 5rem 0;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+#login-sn hgroup {
+  color: white;
+  text-align: center;
+  margin-bottom: 0.2%;
+}
+#login-sn hgroup h1 {
+  font-size: 4.5em;
+  color: #eac879;
+}
+
+#login-sn hgroup p {
+  font-size: 2em;
+}
+
+.termsErr {
+  text-align: center;
+}
+
+@media only screen and (max-width: 650px) {
+  #login-sn .card {
+  }
+}
+
+#my-account header {
+  padding: 0;
+  padding-top: 2.2rem;
+}
+
+#my-account header h1 {
+  text-align: left;
+  font-size: 3em;
+}
+
+#my-account header .container {
+  width: 100%;
+}
+
+.prof-pic {
+  height: 100%;
+  width: auto;
+  max-width: 5rem;
+}
+
+.prof-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.prof-cont {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#my-account main nav {
+  display: inline-block;
+  background-color: #605e5e;
+  min-width: 15rem;
+  border-radius: 5px;
+}
+
+#my-account main nav ul li {
+  list-style-type: none;
+  border-bottom: 1px #848484 solid;
+}
+
+#my-account main nav ul li a {
+  display: block;
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+#my-account main nav ul li a:hover {
+  background-color: rgb(37, 37, 37);
+  transition: all 300ms ease-in;
+}
+
+#my-account select {
+}
+
+.info {
+  width: 100%;
+}
+
+.personal-info-frm {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  border: none;
+}
+
+.personal-info-frm label {
+  margin-bottom: 0.2rem;
+  margin-top: 1rem;
+}
+
+.personal-info-frm input:last-child {
+  margin-top: 1rem;
+}
+
+#my-account .no-hover-card {
+  max-width: none;
+}
+.acc-group {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+}
+
+#my-account main .active {
+  background-color: #848484;
+}
+
+#logout {
+  border: none;
+  padding: 0;
+  width: min-content;
+  margin: 0;
+}
+
+#logout input {
+  padding: 0.8rem 2rem;
+  border-radius: 80px;
+  background-color: #28a745;
+  color: #fff;
+  font-weight: bold;
 }
