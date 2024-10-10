@@ -6,17 +6,17 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    // Database connection
     $conn = new mysqli('localhost', 'root', '', 'recipe_website_schema');
     if ($conn->connect_error) {
         http_response_code(500);
         exit("Connection failed: " . $conn->connect_error);
     }
 
-    // Read the raw input data and decode the JSON to access the recipe ID
-    $input = json_decode(file_get_contents("php://input"), true);
-    $recipe_id = isset($input['id']) ? intval($input['id']) : null;
+    // Get the recipe ID from the query string
+    if (isset($_GET['id'])) {
+        $recipe_id = intval($_GET['id']);
 
-    if ($recipe_id) {
         // Delete associated ingredients and instructions first due to foreign key constraints
         $stmt = $conn->prepare("DELETE FROM ingredients WHERE recipe_id = ?");
         $stmt->bind_param("i", $recipe_id);
