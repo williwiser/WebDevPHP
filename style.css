@@ -1668,6 +1668,141 @@ label {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/*Search reciepes formatting*/
+/*Kaizer's code*/
+/* Style for the search bar */
+.search-bar {
+  display: flex; /* Flexbox for horizontal alignment */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  margin: 20px 0; /* Add vertical space */
+}
+
+#searchRecipeTab {
+  width: 300px; /* Adjust width to your preference */
+  padding: 10px; /* Padding for comfort */
+  border: 2px solid #ccc; /* Border style */
+  border-radius: 20px; /* Rounded edges for oval shape */
+  outline: none; /* Remove default outline */
+  font-size: 16px; /* Font size */
+}
+
+/* Style for the search button */
+button {
+  padding: 10px 20px; /* Padding for the button */
+  border: none; /* Remove default border */
+  border-radius: 20px; /* Rounded edges for oval shape */
+  background-color: #a5a728; /* Green background */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-left: 10px; /* Space between search bar and button */
+}
+
+/* Optional: Add hover effect for button */
+button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/*Recipe search formatting and cards*/
+:root {
+  --surface-color:#a5a728;
+  --curve: 40;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #fef8f8;
+}
+
+.alphacard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Grid layout for cards */
+  gap: 2rem;
+  margin: 4rem 5vw;
+  padding: 0;
+  list-style-type: none;
+}
+
+.alphacard {
+  position: relative;
+  display: block;
+  height: 100%;
+  border-radius: calc(var(--curve) * 1px);
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow for depth */
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.alphacard:hover {
+  transform: translateY(-5px); /* Lift card on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.alphacard__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Ensure the image covers the space without distortion */
+}
+
+.alphacard__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  border-radius: calc(var(--curve) * 1px);    
+  background-color: var(--surface-color);      
+  transform: translateY(100%);
+  transition: transform 0.2s ease-in-out;
+  padding: 1rem;
+}
+
+.alphacard:hover .alphacard__overlay {
+  transform: translateY(0); /* Slide in overlay on hover */
+}
+
+.alphacard__header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 1em;
+  background-color: var(--surface-color);
+}
+
+.alphacard__title {
+  font-size: 1.2em;
+  margin: 0;
+  color: #fff;
+}
+
+.alphacard__rating {
+  font-size: 1.2em;
+  color: #FFD700; /* Gold stars */
+}
+
+.alphacard__star {
+  margin: 0 2px;
+}
+
+.alphacard__description {
+  padding: 0 1em 1em;
+  margin: 0;
+  color: #6A515E;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  overflow: hidden; /* Hide overflow text */
+}
+
+
+/*End of kaizer's search bar code and cards*/
+
 
 
 
