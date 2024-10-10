@@ -1595,3 +1595,82 @@ label {
 #confirmNo:hover {
   background-color: #6c7a89;
 }
+
+/*Search reciepes formatting*/
+/*Kaizer's code*/
+/* Style for the search bar */
+.search-bar {
+  display: flex; /* Flexbox for horizontal alignment */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  margin: 20px 0; /* Add vertical space */
+}
+
+#searchRecipeTab {
+  width: 300px; /* Adjust width to your preference */
+  padding: 10px; /* Padding for comfort */
+  border: 2px solid #ccc; /* Border style */
+  border-radius: 20px; /* Rounded edges for oval shape */
+  outline: none; /* Remove default outline */
+  font-size: 16px; /* Font size */
+}
+
+/* Style for the search button */
+button {
+  padding: 10px 20px; /* Padding for the button */
+  border: none; /* Remove default border */
+  border-radius: 20px; /* Rounded edges for oval shape */
+  background-color: #a5a728; /* Green background */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-left: 10px; /* Space between search bar and button */
+}
+
+/* Optional: Add hover effect for button */
+button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.unique-recipe-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.unique-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 15px;
+  width: 200px; /* Adjust the width as needed */
+  text-align: center;
+}
+
+.unique-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px 5px 0 0; /* Rounded top corners */
+}
+
+/* Hover effect */
+.unique-card:hover {
+    transform: scale(1.05); /* Scale up slightly */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
+
+.rating {
+  font-size: 20px; /* Adjust the size as needed */
+  color: #a5a728; /* Color for the filled stars */
+}
+
+.star {
+  margin: 0 2px; /* Add some space between stars */
+}
+
+
+/*End of kaizer's search bar code*/

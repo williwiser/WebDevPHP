@@ -69,28 +69,7 @@ session_start();
   <header>
     <h1>Welcome to <span>Recipe Hub</span></h1>
     <p>Discover, cook, and share delicious recipes with the world!<br /></p>
-    <div class="search-bar">
-      <input type="text" id="searchRecipeTab" placeholder="Enter recipe name" />
-      <button onclick="searchRecipeDatabase()">Search</button>
-      <script>
-        function searchRecipeDatabase() {
-          const searchQuery = document.getElementById("searchRecipeTab").value;
 
-          // AJAX request to PHP file
-          const xhr = new XMLHttpRequest();
-          xhr.open("POST", "search.php", true);
-          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-          xhr.onload = function () {
-            if (this.status === 200) {
-              document.getElementById("results").innerHTML = this.responseText;
-            }
-          };
-
-          xhr.send("query=" + encodeURIComponent(searchQuery));
-        }
-      </script>
-    </div>
     <a href="recipes.php" id="explore-btn" title="Explore our collection of recipes"><strong>Explore
         Recipes</strong></a>
   </header>
