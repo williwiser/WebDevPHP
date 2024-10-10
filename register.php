@@ -65,10 +65,10 @@
           <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <?php
 
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "recipe_website_schema";
+            $servername = "CS3-DEV.ICT.RU.AC.ZA";
+            $username = "TheOGs";
+            $password = "M7fiB7C6";
+            $dbname = "theogs";
 
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);

@@ -2,10 +2,10 @@
 session_start();
 
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "recipe_website_schema"; // Ensure this is the correct database name
+$servername = "CS3-DEV.ICT.RU.AC.ZA";
+$username = "TheOGs";
+$password = "M7fiB7C6";
+$dbname = "theogs"; // Ensure this is the correct database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -28,7 +28,7 @@ if ($searchTerm) {
                 rating
             FROM recipes 
             WHERE title LIKE ? OR description LIKE ?";
-    
+
     $stmt = $conn->prepare($sql);
     $likeTerm = "%" . $searchTerm . "%";
     $stmt->bind_param("ss", $likeTerm, $likeTerm);
@@ -37,11 +37,12 @@ if ($searchTerm) {
 } else {
     $sql = "SELECT 
                 title,
+                recipe_id,
                 description,
                 image,
                 rating
             FROM recipes";
-    
+
     $result = $conn->query($sql);
 }
 
@@ -59,15 +60,16 @@ $conn->close();
 if (!empty($recipes)): ?>
     <div class="alphacard-container">
         <?php foreach ($recipes as $row): ?>
-            <div class="alphacard">
-                <img class="alphacard__image" src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
+            <a href="recipe-detail.php?recipe_id=<?php echo $row['recipe_id'] ?>" class="alphacard">
+                <img class="alphacard__image" src="<?php echo htmlspecialchars($row['image']); ?>"
+                    alt="<?php echo htmlspecialchars($row['title']); ?>">
                 <div class="alphacard__overlay">
                     <div class="alphacard__header">
                         <h2 class="alphacard__title"><?php echo htmlspecialchars($row['title']); ?></h2>
                         <div class="alphacard__rating">
                             <?php
                             $rating = round($row['rating']); // Round to the nearest whole number
-                            for ($i = 1; $i <= 5; $i++): 
+                            for ($i = 1; $i <= 5; $i++):
                                 if ($i <= $rating): ?>
                                     <span class="alphacard__star filled">★</span>
                                 <?php else: ?>
@@ -78,7 +80,7 @@ if (!empty($recipes)): ?>
                     </div>
                     <p class="alphacard__description"><?php echo htmlspecialchars($row['description']); ?></p>
                 </div>
-            </div>
+            </a>
         <?php endforeach; ?>
     </div>
 <?php else: ?>

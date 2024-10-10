@@ -6,10 +6,10 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
 }
 
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = ""; 
-$dbname = "recipe_website_schema";
+$servername = "CS3-DEV.ICT.RU.AC.ZA";
+$username = "TheOGs";
+$password = "M7fiB7C6";
+$dbname = "theogs";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $instructions = htmlspecialchars($_POST['instructions']);
     $uploadDir = 'img/';
     $uploadFile = $uploadDir . basename($_FILES['image']['name']);
-    
+
     // Check if the file is an image
     $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
     $check = getimagesize($_FILES['image']['tmp_name']);

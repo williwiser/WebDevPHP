@@ -4,6 +4,7 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,13 +33,14 @@ session_start();
     <header>
         <h1>Explore Recipes</h1>
         <p>Browse through our extensive collection of recipes shared by food enthusiasts like you!</p>
+        <section class="search-bar">
+            <input type="text" id="searchRecipeTab" placeholder="Enter recipe name" />
+            <button id="searchButton">Search</button>
+            <button id="seeAllButton">See All</button> <!-- See All button added -->
+        </section>
     </header>
 
-    <section class="search-bar">
-        <input type="text" id="searchRecipeTab" placeholder="Enter recipe name" />
-        <button id="searchButton">Search</button>
-        <button id="seeAllButton">See All</button> <!-- See All button added -->
-    </section>
+
 
     <section id="recipeResults">
         <!-- Recipe Cards Container -->
@@ -48,57 +50,61 @@ session_start();
     </section>
 
     <script>
-    document.getElementById("searchButton").addEventListener("click", function() {
-        const searchQuery = document.getElementById("searchRecipeTab").value;
+        document.getElementById("searchButton").addEventListener("click", function () {
+            const searchQuery = document.getElementById("searchRecipeTab").value;
 
-        // AJAX request to fetch_recipes.php for processing
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", "fetch_recipes.php", true); // Send to the new PHP file for processing
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            // AJAX request to fetch_recipes.php for processing
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_recipes.php", true); // Send to the new PHP file for processing
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        xhr.onload = function () {
-            if (this.status === 200) {
-                // Update only the recipe results section
-                document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = this.responseText;
-            } else {
-                document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = "<p>No recipes found.</p>";
-            }
-        };
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    // Update only the recipe results section
+                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = this.responseText;
+                } else {
+                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = "<p>No recipes found.</p>";
+                }
+            };
 
-        xhr.send("query=" + encodeURIComponent(searchQuery));
-    });
+            xhr.send("query=" + encodeURIComponent(searchQuery));
+        });
 
-    // Add event listener for See All button
-document.getElementById("seeAllButton").addEventListener("click", function() {
-    // AJAX request to fetch_recipes.php for all recipes
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "fetch_recipes.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // Add event listener for See All button
+        document.getElementById("seeAllButton").addEventListener("click", function () {
+            // AJAX request to fetch_recipes.php for all recipes
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "fetch_recipes.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    xhr.onload = function () {
-        if (this.status === 200) {
-            // Update only the recipe results section
-            document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = this.responseText;
-        } else {
-            document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = "<p>No recipes found.</p>";
-        }
-    };
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    // Update only the recipe results section
+                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = this.responseText;
+                } else {
+                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = "<p>No recipes found.</p>";
+                }
+            };
 
-    xhr.send(); // No query parameter needed for all recipes
-});
+            xhr.send(); // No query parameter needed for all recipes
+        });
     </script>
-    
+
 
     <footer>
         <section class="container">
             <p>&copy; The OG's 2024. All rights reserved.</p>
             <div class="social-buttons">
-                <a href="https://www.instagram.com" class="social-button instagram" aria-label="Instagram" target="_blank"></a>
-                <a href="https://www.facebook.com" class="social-button facebook" aria-label="Facebook" target="_blank"></a>
-                <a href="https://www.youtube.com" class="social-button youtube" aria-label="YouTube" target="_blank"></a>
+                <a href="https://www.instagram.com" class="social-button instagram" aria-label="Instagram"
+                    target="_blank"></a>
+                <a href="https://www.facebook.com" class="social-button facebook" aria-label="Facebook"
+                    target="_blank"></a>
+                <a href="https://www.youtube.com" class="social-button youtube" aria-label="YouTube"
+                    target="_blank"></a>
                 <a href="https://www.github.com" class="social-button github" aria-label="GitHub" target="_blank"></a>
             </div>
         </section>
     </footer>
 </body>
+
 </html>

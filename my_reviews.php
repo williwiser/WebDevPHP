@@ -5,10 +5,10 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "recipe_website_schema";
+$servername = "CS3-DEV.ICT.RU.AC.ZA";
+$username = "TheOGs";
+$password = "M7fiB7C6";
+$dbname = "theogs";
 $conn = new mysqli($servername, $username, $password, $dbname);
 $user_id = $_SESSION["user_id"];
 $stmt = $conn->prepare("SELECT username FROM users WHERE user_id = ?");

@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     $recipeId = intval($_GET['id']);
 
     // Database connection
-    $conn = new mysqli('localhost', 'root', '', 'recipe_website_schema');
+    $conn = new mysqli('CS3-DEV.ICT.RU.AC.ZA', 'TheOGs', 'M7fiB7C6', 'theogs');
     if ($conn->connect_error) {
         http_response_code(500);
         echo json_encode(["error" => "Database connection failed"]);

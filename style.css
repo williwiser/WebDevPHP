@@ -1058,12 +1058,6 @@ li:nth-child(3) .explore-link:hover {
   color: white;
 }
 
-#recipe-detail {
-  width: 35%;
-  height: 35%;
-  border: black solid 1px;
-}
-
 #recipe-discription {
   font-size: 25px;
   margin-bottom: 20px;
@@ -1071,14 +1065,14 @@ li:nth-child(3) .explore-link:hover {
 }
 
 #recipe-detail {
-  width: 35%;
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Ensures margin auto works */
-  margin: 0 auto 20px auto; /* Centers horizontally and adds margin at the bottom */
   border: black solid 1px;
   border-radius: 10px;
-  max-width: 100%;
-  text-align: center;
+  display: block;
+  max-width: 20rem;
+  max-height: 15rem;
+  width: auto;
+  height: auto;
+  object-fit: cover;
 }
 
 #myh2 {
@@ -1087,13 +1081,23 @@ li:nth-child(3) .explore-link:hover {
   margin-bottom: 10px;
   border-bottom: 2px solid #ff5722;
 }
-.recipe-Section {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.recipe-sn .container article {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.recipe-sn {
+  background-color: rgb(245, 244, 238);
+}
+
+.recipe-sn hr {
+  margin: 2rem 0;
+}
+
+.recipe-sn .container hgroup {
+  max-width: 15rem;
 }
 
 .error {

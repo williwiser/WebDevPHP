@@ -34,7 +34,11 @@ $instructions = $_POST['instructions'];
 $currentImage = $_POST['currentImage'] ?? '';
 
 // Database connection
-$conn = new mysqli('localhost', 'root', '', 'recipe_website_schema');
+$servername = "CS3-DEV.ICT.RU.AC.ZA";
+$username = "TheOGs";
+$password = "M7fiB7C6";
+$dbname = "theogs";
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     http_response_code(500);
     echo json_encode(["error" => "Database connection failed: " . $conn->connect_error]);
@@ -46,7 +50,7 @@ $imagePath = $currentImage; // Default to the existing image path
 if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     $targetDir = "uploads/";
     $targetFile = $targetDir . basename($_FILES["image"]["name"]);
-    
+
     // Move the uploaded file
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
         $imagePath = $targetFile;

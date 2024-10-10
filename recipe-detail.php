@@ -5,7 +5,11 @@ if (isset($_GET['recipe_id'])) {
   $recipe_id = intval($_GET['recipe_id']);
 
   // Database connection
-  $conn = new mysqli('localhost', 'root', '', 'recipe_website_schema');
+  $servername = "CS3-DEV.ICT.RU.AC.ZA";
+  $username = "TheOGs";
+  $password = "M7fiB7C6";
+  $dbname = "theogs";
+  $conn = new mysqli($servername, $username, $password, $dbname);
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
@@ -96,29 +100,58 @@ if (isset($_GET['recipe_id'])) {
     <p><?php echo htmlspecialchars($error_message); ?></p>
   <?php else: ?>
     <!-- Display recipe details -->
-    <header id="myHeader">
+    <header id="myHeader"
+      style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('<?php echo htmlspecialchars($recipe['image']); ?>'); background-size: cover;">
       <h1 id="recipe-title"><?php echo htmlspecialchars($recipe['title']); ?></h1>
     </header>
 
-    <section class="recipe-Section">
-      <p id="recipe-description"><?php echo htmlspecialchars($recipe['description']); ?></p>
-      <img id="recipe-detail" src="<?php echo htmlspecialchars($recipe['image']); ?>" alt="Recipe Image">
+    <section class="recipe-sn">
+      <section class="container">
+        <h1 id="recipe-title"><?php echo htmlspecialchars($recipe['title']); ?></h1>
+        <p id="recipe-description"><?php echo htmlspecialchars($recipe['description']); ?></p>
+        <hr>
+        <article>
+          <hgroup>
+            <h2>Ingredients</h2>
+            <ul id="recipe-ingredients">
+              <?php foreach ($ingredients as $ingredient): ?>
+                <li><?php echo $ingredient; ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </hgroup>
 
-      <h2>Ingredients</h2>
-      <ul id="recipe-ingredients">
-        <?php foreach ($ingredients as $ingredient): ?>
-          <li><?php echo $ingredient; ?></li>
-        <?php endforeach; ?>
-      </ul>
+          <hgroup>
+            <h2>Instructions</h2>
+            <ol id="recipe-instructions">
+              <?php foreach ($instructions as $instruction): ?>
+                <li><?php echo $instruction; ?></li>
+              <?php endforeach; ?>
+            </ol>
+          </hgroup>
 
-      <h2>Instructions</h2>
-      <ol id="recipe-instructions">
-        <?php foreach ($instructions as $instruction): ?>
-          <li><?php echo $instruction; ?></li>
-        <?php endforeach; ?>
-      </ol>
+          <img id="recipe-detail" src="<?php echo htmlspecialchars($recipe['image']); ?>" alt="Recipe Image">
+        </article>
+      </section>
     </section>
   <?php endif; ?>
+  <footer>
+    <section class="container">
+      <p>&copy; The OG's 2024. All rights reserved.</p>
+
+      <!--Begin social buttons-->
+
+      <!--TODO replace links with relevant locations-->
+      <div class="social-buttons">
+        <a href="https://www.instagram.com" class="social-button instagram" aria-label="Instagram" target="_blank"></a>
+        <a href="https://www.facebook.com" class="social-button facebook" aria-label="Facebook" target="_blank"></a>
+        <a href="https://www.youtube.com" class="social-button youtube" aria-label="YouTube" target="_blank"></a>
+        <a href="https://www.github.com" class="social-button github" aria-label="GitHub" target="_blank"></a>
+      </div>
+      <!--End social buttons-->
+
+
+    </section>
+  </footer>
 
   <script src="navigator-info.js"></script>
 </body>
