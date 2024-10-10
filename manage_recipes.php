@@ -44,12 +44,49 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
 
     <div id="search-results" class="manage-recipes-container"></div>
 
-    <!-- Modal for confirmation -->
+    <!-- Modify Recipe Modal -->
+<!-- Modify Recipe Modal -->
+<div id="modifyModal" class="modal">
+    <div class="modal-content">
+        <h2>Modify Recipe</h2>
+        <form id="modify-recipe-form" class="modify-form">
+            <input type="hidden" id="modify-recipe-id" name="modify-recipe-id">
+
+            <label for="modify-title">Recipe Title</label>
+            <input type="text" id="modify-title" name="modify-title" class="input-field" required>
+
+            <label for="modify-description">Description</label>
+            <textarea id="modify-description" name="modify-description" rows="4" class="textarea-field" required></textarea>
+
+            <label for="modify-ingredients">Ingredients (one per line)</label>
+            <textarea id="modify-ingredients" name="modify-ingredients" rows="4" class="textarea-field" required></textarea>
+
+            <label for="modify-instructions">Instructions (one per line)</label>
+            <textarea id="modify-instructions" name="modify-instructions" rows="4" class="textarea-field" required></textarea>
+
+            <!-- Current Image Preview -->
+            <div id="current-image-container" style="margin-bottom: 15px;">
+                <label>Current Image:</label>
+                <img id="modify-current-image" src="" alt="Current Recipe Image" style="max-width: 100%; height: auto;">
+            </div>
+
+            <label for="modify-image">Recipe Image (optional)</label>
+            <input type="file" id="modify-image" name="modify-image" class="input-file">
+
+            <div class="modal-buttons">
+                <button type="button" id="modify-save" class="save-btn">Save Changes</button>
+                <button type="button" id="modify-cancel" class="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- Confirm Delete Modal -->
     <div id="confirmModal" class="modal">
         <div class="modal-content">
             <p>Are you sure you want to delete this recipe?</p>
-            <button id="confirmYes">Yes</button>
-            <button id="confirmNo">No</button>
+            <button id="confirmYes" class="confirm-btn">Yes</button>
+            <button id="confirmNo" class="cancel-btn">No</button>
         </div>
     </div>
 

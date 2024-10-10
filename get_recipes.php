@@ -15,9 +15,26 @@ if ($conn->connect_error) {
     die(json_encode(['error' => 'Database connection failed.']));
 }
 
-// Fetch all recipes
+// Get the search query parameter from the URL
+$searchQuery = isset($_GET['query']) ? trim($_GET['query']) : "";
+
+// Prepare the SQL statement with a LIKE clause if there's a search query
 $sql = "SELECT recipe_id, title, image, rating, description FROM recipes";
-$result = $conn->query($sql);
+if (!empty($searchQuery)) {
+    $sql .= " WHERE title LIKE ? OR description LIKE ?";
+}
+
+$stmt = $conn->prepare($sql);
+
+if (!empty($searchQuery)) {
+    // Bind the search term with wildcards for partial matching
+    $searchTerm = '%' . $searchQuery . '%';
+    $stmt->bind_param("ss", $searchTerm, $searchTerm);
+}
+
+// Execute the statement
+$stmt->execute();
+$result = $stmt->get_result();
 
 $recipes = [];
 if ($result->num_rows > 0) {
@@ -26,7 +43,8 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Close the connection
+// Close the statement and connection
+$stmt->close();
 $conn->close();
 
 // Output the recipes as JSON
