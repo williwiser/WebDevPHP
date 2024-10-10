@@ -78,3 +78,9 @@ SELECT * FROM instructions;
 SELECT * FROM ingredients WHERE recipe_id = 2;  -- Replace with appropriate recipe_id
 SELECT * FROM instructions WHERE recipe_id = 2; -- Replace with appropriate recipe_id
 
+CREATE TABLE reviews(
+	review_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    feedback TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
