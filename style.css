@@ -518,9 +518,10 @@ footer address {
 }
 /* features section on home page */
 #features article {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
   padding: 0;
-  column-count: 3;
-  column-gap: 1rem;
 }
 
 #features hgroup {
@@ -529,7 +530,7 @@ footer address {
   padding: 2rem;
   border-radius: 5px;
   min-height: 10rem;
-  aspect-ratio: 1.8 / 1;
+  width: 100%;
 }
 
 #features hgroup h3 {
@@ -981,8 +982,7 @@ li:nth-child(3) .explore-link:hover {
 
   /* media queries for features */
   #features article {
-    column-count: 1;
-    aspect-ratio: unset;
+    flex-direction: column;
   }
 
   #features hgroup {
@@ -1350,7 +1350,7 @@ label {
 }
 
 .manage-recipes-header {
-  background: url('img/avocado-bg.jpg') no-repeat center center/cover;
+  background: url("img/avocado-bg.jpg") no-repeat center center/cover;
   height: 300px;
   display: flex;
   flex-direction: column;
@@ -1460,21 +1460,21 @@ label {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto-Regular'; /* Apply Roboto-Regular font */
+  font-family: "Roboto-Regular"; /* Apply Roboto-Regular font */
   align-items: center; /* Center align the content */
 }
 
 .recipe-form h1 {
   text-align: center;
   margin-bottom: 20px;
-  font-family: 'Roboto-Bold'; /* Apply Roboto-Bold font */
+  font-family: "Roboto-Bold"; /* Apply Roboto-Bold font */
   font-size: 2em;
 }
 
 .recipe-form label {
   margin: 15px 0 5px;
   font-weight: bold;
-  font-family: 'Roboto-Bold'; /* Apply Roboto-Bold font */
+  font-family: "Roboto-Bold"; /* Apply Roboto-Bold font */
   align-self: flex-start; /* Align labels to the left */
 }
 
@@ -1486,13 +1486,13 @@ label {
   border-radius: 5px;
   border: 1px solid #ddd;
   margin-bottom: 20px;
-  font-family: 'Roboto-Regular'; /* Apply Roboto-Regular font */
+  font-family: "Roboto-Regular"; /* Apply Roboto-Regular font */
 }
 
 .recipe-form input[type="file"] {
   border: none;
   margin-bottom: 20px;
-  font-family: 'Roboto-Regular';
+  font-family: "Roboto-Regular";
 }
 
 .recipe-form button {
@@ -1504,7 +1504,7 @@ label {
   width: 100%;
   font-size: 18px;
   border-radius: 25px;
-  font-family: 'Roboto-Bold'; /* Apply Roboto-Bold font */
+  font-family: "Roboto-Bold"; /* Apply Roboto-Bold font */
   text-transform: uppercase;
   transition: background-color 0.3s, transform 0.3s;
 }
@@ -1550,9 +1550,6 @@ label {
 
 /* Styling for the modal overlay */
 
-
-
-
 /* Styling for the modal overlay */
 /* Styling for the modal overlay */
 .modal {
@@ -1584,7 +1581,7 @@ label {
 }
 /* Modal title */
 .modal-content h2 {
-  font-family: 'Roboto-Bold';
+  font-family: "Roboto-Bold";
   margin-bottom: 20px;
   font-size: 24px;
   text-align: center;
@@ -1592,7 +1589,8 @@ label {
 }
 
 /* Styling for input fields */
-.input-field, .textarea-field {
+.input-field,
+.textarea-field {
   width: 100%;
   padding: 12px;
   margin-bottom: 20px;
@@ -1602,7 +1600,8 @@ label {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
 }
 
-.input-field:focus, .textarea-field:focus {
+.input-field:focus,
+.textarea-field:focus {
   border-color: #28a745; /* Green border on focus */
   box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Green glow */
   outline: none; /* Remove default outline */
@@ -1626,7 +1625,8 @@ label {
   margin-top: 20px;
 }
 
-.save-btn, .cancel-btn {
+.save-btn,
+.cancel-btn {
   padding: 12px 20px;
   font-size: 16px;
   cursor: pointer;
@@ -1706,7 +1706,7 @@ button:hover {
 
 /*Recipe search formatting and cards*/
 :root {
-  --surface-color:#a5a728;
+  --surface-color: #a5a728;
   --curve: 40;
 }
 
@@ -1715,13 +1715,16 @@ button:hover {
 }
 
 body {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
   background-color: #fef8f8;
 }
 
 .alphacard-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Grid layout for cards */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Grid layout for cards */
   gap: 2rem;
   margin: 4rem 5vw;
   padding: 0;
@@ -1756,8 +1759,8 @@ body {
   left: 0;
   right: 0;
   z-index: 1;
-  border-radius: calc(var(--curve) * 1px);    
-  background-color: var(--surface-color);      
+  border-radius: calc(var(--curve) * 1px);
+  background-color: var(--surface-color);
   transform: translateY(100%);
   transition: transform 0.2s ease-in-out;
   padding: 1rem;
@@ -1783,7 +1786,7 @@ body {
 
 .alphacard__rating {
   font-size: 1.2em;
-  color: #FFD700; /* Gold stars */
+  color: #ffd700; /* Gold stars */
 }
 
 .alphacard__star {
@@ -1793,17 +1796,11 @@ body {
 .alphacard__description {
   padding: 0 1em 1em;
   margin: 0;
-  color: #6A515E;
+  color: #6a515e;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3; /* Limit to 3 lines */
   overflow: hidden; /* Hide overflow text */
 }
 
-
 /*End of kaizer's search bar code and cards*/
-
-
-
-
-
