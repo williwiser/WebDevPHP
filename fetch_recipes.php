@@ -5,7 +5,7 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "my_database"; // Ensure this is the correct database name
+$dbname = "recipe_website_schema"; // Ensure this is the correct database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -16,18 +16,18 @@ if ($conn->connect_error) {
 }
 
 // Prepare SQL query based on whether a search term is provided
-$searchTerm = isset($_POST['query']) ? $_POST['query'] : ''; // Get the search term from POST request
+$searchTerm = isset($_POST['query']) ? trim($_POST['query']) : ''; // Get the search term from POST request
 $recipes = [];
 $noRecipesMessage = "";
 
 if ($searchTerm) {
     $sql = "SELECT 
-                recipes.title,
-                recipes.description,
-                recipes.image,
-                recipes.rating
+                title,
+                description,
+                image,
+                rating
             FROM recipes 
-            WHERE recipes.title LIKE ? OR recipes.description LIKE ?";
+            WHERE title LIKE ? OR description LIKE ?";
     
     $stmt = $conn->prepare($sql);
     $likeTerm = "%" . $searchTerm . "%";
@@ -36,10 +36,10 @@ if ($searchTerm) {
     $result = $stmt->get_result();
 } else {
     $sql = "SELECT 
-                recipes.title,
-                recipes.description,
-                recipes.image,
-                recipes.rating
+                title,
+                description,
+                image,
+                rating
             FROM recipes";
     
     $result = $conn->query($sql);
@@ -55,32 +55,32 @@ if ($result && $result->num_rows > 0) {
 
 $conn->close();
 
-// Only return the HTML for the recipes
+// Output the recipes as HTML
 if (!empty($recipes)): ?>
-    <div class="alphacard-container"> <!-- Apply the "alphacard-container" class for grid layout -->
+    <div class="alphacard-container">
         <?php foreach ($recipes as $row): ?>
-            <div class="alphacard"> <!-- Apply the "alphacard" class for individual cards -->
-                <img class="alphacard__image" src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>"> <!-- Image class -->
-                <div class="alphacard__overlay"> <!-- Overlay class -->
+            <div class="alphacard">
+                <img class="alphacard__image" src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
+                <div class="alphacard__overlay">
                     <div class="alphacard__header">
-                        <h2 class="alphacard__title"><?php echo htmlspecialchars($row['title']); ?></h2> <!-- Title class -->
+                        <h2 class="alphacard__title"><?php echo htmlspecialchars($row['title']); ?></h2>
                         <div class="alphacard__rating">
                             <?php
                             $rating = round($row['rating']); // Round to the nearest whole number
                             for ($i = 1; $i <= 5; $i++): 
                                 if ($i <= $rating): ?>
-                                    <span class="alphacard__star filled">★</span> <!-- Filled star -->
+                                    <span class="alphacard__star filled">★</span>
                                 <?php else: ?>
-                                    <span class="alphacard__star">☆</span> <!-- Empty star -->
+                                    <span class="alphacard__star">☆</span>
                                 <?php endif;
                             endfor; ?>
                         </div>
                     </div>
-                    <p class="alphacard__description"><?php echo htmlspecialchars($row['description']); ?></p> <!-- Description class -->
+                    <p class="alphacard__description"><?php echo htmlspecialchars($row['description']); ?></p>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
 <?php else: ?>
-    <p><?php echo htmlspecialchars($noRecipesMessage); ?></p> <!-- Use htmlspecialchars for safety -->
+    <p><?php echo htmlspecialchars($noRecipesMessage); ?></p>
 <?php endif; ?>
