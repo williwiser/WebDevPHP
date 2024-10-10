@@ -1632,9 +1632,9 @@ button:hover {
   background-color: #218838; /* Darker green on hover */
 }
 
-/*Recipe search formatting*/
+/*Recipe search formatting and cards*/
 :root {
-  --surface-color: #fff;
+  --surface-color:#a5a728;
   --curve: 40;
 }
 
@@ -1706,7 +1706,7 @@ body {
 .alphacard__title {
   font-size: 1.2em;
   margin: 0;
-  color: #6A515E;
+  color: #fff;
 }
 
 .alphacard__rating {
@@ -1729,4 +1729,4 @@ body {
 }
 
 
-/*End of kaizer's search bar code*/
+/*End of kaizer's search bar code and cards*/
