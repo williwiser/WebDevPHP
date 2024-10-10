@@ -129,14 +129,14 @@ session_start();
         </p>
         <ul>
           <li>
-            <a href="recipes/chocolate_cake.html" class="explore-link"><span>Vegetarian <br />Cuisines</span></a>
+            <a href="recipes.php" class="explore-link"><span>Vegetarian <br />Cuisines</span></a>
           </li>
           <li>
-            <a href="recipes/chocolate_cake.html" class="explore-link">Savory <br />
+            <a href="recipes.php" class="explore-link">Savory <br />
               Desserts</a>
           </li>
           <li>
-            <a href="recipes/chocolate_cake.html" class="explore-link">Italian <br />Delicacies</a>
+            <a href="recipes.php" class="explore-link">Italian <br />Delicacies</a>
           </li>
         </ul>
       </section>
