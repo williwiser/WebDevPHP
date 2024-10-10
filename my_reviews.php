@@ -20,7 +20,8 @@ $stmt = $conn->prepare("SELECT email FROM users WHERE user_id = ?");
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
 $email = $stmt->get_result();
-
+$feedback = "";
+$response = "";
 $name = "";
 ?>
 
@@ -102,15 +103,7 @@ $name = "";
                         } ?></p>
                     </hgroup>
                 </div>
-                <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    // remove all session variables
-                    session_unset();
-                    // destroy the session
-                    session_destroy();
-                    header("Location: index.php");
-                    exit;
-                } ?>
-                <form id="logout" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <form id="logout" action='log_out.php' method="POST">
                     <input type="submit" id="logout" value="Log out">
                 </form>
             </article>
@@ -125,11 +118,22 @@ $name = "";
                 </nav>
 
                 <section class="info">
-                    <form class="personal-info-frm">
+                    <form class="personal-info-frm" method="POST">
+                        <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            $feedback = $_POST["feedback"];
+                            $stmt = $conn->prepare("INSERT INTO reviews (user_id, feedback) VALUES (?, ?)");
+                            $stmt->bind_param("ss", $user_id, $feedback);
+                            if ($stmt->execute()) {
+                                $response = "Thanks for the feedback!";
+                            } else {
+                                $response = "Sorry, something went wrong.";
+                            }
+                        } ?>
                         <h1>Reviews</h1>
                         <label for="username">Feedback</label>
-                        <textarea placeholder="What do you think of our site?"></textarea>
-                        <input type="submit" value="Save" />
+                        <textarea name="feedback" placeholder="What do you think of our site?"></textarea>
+                        <input type="submit" value="Submit" />
+                        <?php echo $response; ?>
                     </form>
                 </section>
             </div>
