@@ -1632,44 +1632,100 @@ button:hover {
   background-color: #218838; /* Darker green on hover */
 }
 
+/*Recipe search formatting*/
+:root {
+  --surface-color: #fff;
+  --curve: 40;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #fef8f8;
 }
 
-.unique-recipe-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.alphacard-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Grid layout for cards */
+  gap: 2rem;
+  margin: 4rem 5vw;
+  padding: 0;
+  list-style-type: none;
 }
 
-.unique-card {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 15px;
-  width: 200px; /* Adjust the width as needed */
-  text-align: center;
+.alphacard {
+  position: relative;
+  display: block;
+  height: 100%;
+  border-radius: calc(var(--curve) * 1px);
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow for depth */
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.unique-card img {
+.alphacard:hover {
+  transform: translateY(-5px); /* Lift card on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.alphacard__image {
   width: 100%;
-  height: auto;
-  border-radius: 5px 5px 0 0; /* Rounded top corners */
+  height: 200px;
+  object-fit: cover; /* Ensure the image covers the space without distortion */
 }
 
-/* Hover effect */
-.unique-card:hover {
-    transform: scale(1.05); /* Scale up slightly */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Add a shadow */
+.alphacard__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  border-radius: calc(var(--curve) * 1px);    
+  background-color: var(--surface-color);      
+  transform: translateY(100%);
+  transition: transform 0.2s ease-in-out;
+  padding: 1rem;
 }
 
-.rating {
-  font-size: 20px; /* Adjust the size as needed */
-  color: #a5a728; /* Color for the filled stars */
+.alphacard:hover .alphacard__overlay {
+  transform: translateY(0); /* Slide in overlay on hover */
 }
 
-.star {
-  margin: 0 2px; /* Add some space between stars */
+.alphacard__header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 1em;
+  background-color: var(--surface-color);
+}
+
+.alphacard__title {
+  font-size: 1.2em;
+  margin: 0;
+  color: #6A515E;
+}
+
+.alphacard__rating {
+  font-size: 1.2em;
+  color: #FFD700; /* Gold stars */
+}
+
+.alphacard__star {
+  margin: 0 2px;
+}
+
+.alphacard__description {
+  padding: 0 1em 1em;
+  margin: 0;
+  color: #6A515E;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  overflow: hidden; /* Hide overflow text */
 }
 
 

@@ -1,10 +1,11 @@
 <?php
 session_start();
+
 // Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "my_database"; // Make sure this is correct
+$dbname = "my_database"; // Ensure this is the correct database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -56,24 +57,30 @@ $conn->close();
 
 // Only return the HTML for the recipes
 if (!empty($recipes)): ?>
-    <?php foreach ($recipes as $row): ?>
-        <div class="unique-card">
-            <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>">
-            <h2><?php echo htmlspecialchars($row['title']); ?></h2>
-            <p><?php echo htmlspecialchars($row['description']); ?></p>
-            <div class="rating">
-                <?php
-                $rating = round($row['rating']); // Round to the nearest whole number
-                for ($i = 1; $i <= 5; $i++): 
-                    if ($i <= $rating) : ?> <!-- Corrected: Changed ":" to ")" -->
-                        <span class="star filled">★</span> <!-- Filled star -->
-                    <?php else: ?>
-                        <span class="star">☆</span> <!-- Empty star -->
-                    <?php endif; 
-                endfor; ?>
+    <div class="alphacard-container"> <!-- Apply the "alphacard-container" class for grid layout -->
+        <?php foreach ($recipes as $row): ?>
+            <div class="alphacard"> <!-- Apply the "alphacard" class for individual cards -->
+                <img class="alphacard__image" src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['title']); ?>"> <!-- Image class -->
+                <div class="alphacard__overlay"> <!-- Overlay class -->
+                    <div class="alphacard__header">
+                        <h2 class="alphacard__title"><?php echo htmlspecialchars($row['title']); ?></h2> <!-- Title class -->
+                        <div class="alphacard__rating">
+                            <?php
+                            $rating = round($row['rating']); // Round to the nearest whole number
+                            for ($i = 1; $i <= 5; $i++): 
+                                if ($i <= $rating): ?>
+                                    <span class="alphacard__star filled">★</span> <!-- Filled star -->
+                                <?php else: ?>
+                                    <span class="alphacard__star">☆</span> <!-- Empty star -->
+                                <?php endif;
+                            endfor; ?>
+                        </div>
+                    </div>
+                    <p class="alphacard__description"><?php echo htmlspecialchars($row['description']); ?></p> <!-- Description class -->
+                </div>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 <?php else: ?>
-    <p><?php echo $noRecipesMessage; ?></p>
+    <p><?php echo htmlspecialchars($noRecipesMessage); ?></p> <!-- Use htmlspecialchars for safety -->
 <?php endif; ?>
