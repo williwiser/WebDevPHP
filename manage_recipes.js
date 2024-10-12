@@ -23,7 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image">
                             <h2>${recipe.title}</h2>
                             <p>${recipe.description}</p>
+                            
                         </a>
+                        <button class="modify-btn" data-id="${recipe.recipe_id}">Modify</button>
+                        <button class="delete-btn" data-id="${recipe.recipe_id}">Delete</button>
                     `;
             searchResults.appendChild(recipeCard);
           });

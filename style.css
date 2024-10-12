@@ -1354,7 +1354,8 @@ label {
 }
 
 .manage-recipes-header {
-  background: url("img/avocado-bg.jpg") no-repeat center center/cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    /* bottom, image */ url("img/avocado-bg.jpg") no-repeat center center/cover;
   height: 300px;
   display: flex;
   flex-direction: column;
@@ -1701,6 +1702,19 @@ button {
   font-size: 16px; /* Font size */
   cursor: pointer; /* Pointer cursor on hover */
   margin-left: 10px; /* Space between search bar and button */
+  box-sizing: border-box;
+}
+
+.modify-btn {
+  background-color: #a5a728;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+  margin-bottom: 1rem;
 }
 
 /* Optional: Add hover effect for button */
