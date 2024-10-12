@@ -562,18 +562,22 @@ footer address {
 }
 
 #latest-recipes ul li {
+  display: flex;
   text-align: center;
   background-color: #ffffff;
   flex: 1;
   overflow: hidden;
   border-radius: 5px;
+  flex-direction: column;
 }
 
 #latest-recipes li img {
-  height: auto;
-  width: 100%; /* ie8 */
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  box-sizing: border-box;
+  flex: 1;
+  width: 100%; /* Ensure the image takes full width of its container */
+  height: auto; /* Maintain aspect ratio */
+  aspect-ratio: 1/1;
+  object-fit: cover; /* Ensure the image covers the container area without distortion */
 }
 
 #latest-recipes li article {
@@ -799,7 +803,8 @@ li:nth-child(3) .explore-link:hover {
   flex-direction: column;
 }
 
-#search-results {
+#search-results,
+#search-recipes {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -814,7 +819,7 @@ li:nth-child(3) .explore-link:hover {
 }
 
 .recipe-cards {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   justify-content: space-around;
 }
@@ -1364,6 +1369,12 @@ label {
   text-align: center;
 }
 
+.recipes-container {
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
 .manage-recipes-header {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
     /* bottom, image */ url("img/avocado-bg.jpg") no-repeat center center/cover;
@@ -1436,7 +1447,8 @@ label {
   background-color: #1e7e34;
 }
 
-#search-results {
+#search-results,
+#search-recipes {
   display: grid;
   grid-template-columns: auto auto auto auto;
   gap: 1rem;
@@ -1445,32 +1457,39 @@ label {
   margin: 0 auto;
 }
 
-#search-results .recipe-card {
+#search-results .recipe-card,
+#search-recipes .recipe-card {
   border: 1px solid #ddd;
+  display: inline-block;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 250px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
-#search-results .recipe-card:hover {
+#search-results .recipe-card:hover,
+#search-recipes .recipe-card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#search-results .recipe-image {
+#search-results .recipe-image,
+#search-recipes .recipe-image {
   width: 100%;
   height: 150px;
   object-fit: cover;
 }
 
-#search-results .recipe-title {
+#search-results .recipe-title,
+#search-recipes .recipe-title {
   font-size: 18px;
   padding: 10px;
 }
 
-#search-results .recipe-description {
+#search-results .recipe-description,
+#search-recipes .recipe-description {
   padding: 0 10px 10px;
   color: #555;
 }
@@ -1761,25 +1780,21 @@ body {
 
 .alphacard-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ); /* Grid layout for cards */
-  gap: 2rem;
-  margin: 4rem 5vw;
+  grid-template-columns: auto; /* Grid layout for cards */
+  gap: 1rem;
   padding: 0;
   list-style-type: none;
 }
 
 .alphacard {
   position: relative;
-  display: block;
-  height: 100%;
-  border-radius: calc(var(--curve) * 1px);
+  border-radius: 5px;
   overflow: hidden;
   text-decoration: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow for depth */
   transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+  width: 100%;
+  max-width: 15rem;
 }
 
 .alphacard:hover {
@@ -1789,7 +1804,7 @@ body {
 
 .alphacard__image {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 1 / 1;
   object-fit: cover; /* Ensure the image covers the space without distortion */
 }
 
@@ -1799,7 +1814,6 @@ body {
   left: 0;
   right: 0;
   z-index: 1;
-  border-radius: calc(var(--curve) * 1px);
   background-color: var(--surface-color);
   transform: translateY(100%);
   transition: transform 0.2s ease-in-out;

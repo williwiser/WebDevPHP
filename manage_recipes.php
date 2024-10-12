@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
-    header("Location: index.php");
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor' || !isset($_SESSION['user_id'])) {
+    header("Location: 404.php");
     exit;
 }
 ?>

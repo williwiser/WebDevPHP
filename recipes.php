@@ -9,7 +9,7 @@ session_start();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipes | Recipes</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -47,68 +47,71 @@ session_start();
 
     <header>
         <h1>Explore Recipes</h1>
-        <p>Browse through our extensive collection of recipes shared by food enthusiasts like you!</p>
-        <section class="search-bar">
-            <input type="text" id="searchRecipeTab" placeholder="Enter recipe name" />
-            <button id="searchButton">Search</button>
-            <button id="seeAllButton">See All</button> <!-- See All button added -->
-        </section>
+        <p>Check out our diverse catalogue of recipes</p>
+        <input type="text" id="search-bar" class="manage-recipes-search-bar" placeholder="Search for a recipe..." />
     </header>
 
+    <div id="search-recipes" class="recipes-container"></div>
 
+    <!-- Modify Recipe Modal -->
+    <!-- Modify Recipe Modal -->
+    <div id="modifyModal" class="modal">
+        <div class="modal-content">
+            <h2>Modify Recipe</h2>
+            <form id="modify-recipe-form" class="modify-form">
+                <input type="hidden" id="modify-recipe-id" name="modify-recipe-id">
 
-    <section id="recipeResults">
-        <!-- Recipe Cards Container -->
-        <div class="unique-recipe-cards">
-            <!-- Initial recipe cards can be displayed here if needed -->
+                <label for="modify-title">Recipe Title</label>
+                <input type="text" id="modify-title" name="modify-title" class="input-field" required>
+
+                <label for="modify-description">Description</label>
+                <textarea id="modify-description" name="modify-description" rows="4" class="textarea-field"
+                    required></textarea>
+
+                <label for="modify-ingredients">Ingredients (one per line)</label>
+                <textarea id="modify-ingredients" name="modify-ingredients" rows="4" class="textarea-field"
+                    required></textarea>
+
+                <label for="modify-instructions">Instructions (one per line)</label>
+                <textarea id="modify-instructions" name="modify-instructions" rows="4" class="textarea-field"
+                    required></textarea>
+
+                <!-- Current Image Preview -->
+                <div id="current-image-container" style="margin-bottom: 15px;">
+                    <label>Current Image:</label>
+                    <img id="modify-current-image" src="" alt="Current Recipe Image"
+                        style="max-width: 100%; height: auto;">
+                </div>
+
+                <label for="modify-image">Recipe Image (optional)</label>
+                <input type="file" id="modify-image" name="modify-image" class="input-file">
+
+                <div class="modal-buttons">
+                    <button type="button" id="modify-save" class="save-btn">Save Changes</button>
+                    <button type="button" id="modify-cancel" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
         </div>
-    </section>
+    </div>
 
-    <script>
-        document.getElementById("searchButton").addEventListener("click", function () {
-            const searchQuery = document.getElementById("searchRecipeTab").value;
+    <!-- Confirm Delete Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to delete this recipe?</p>
+            <button id="confirmYes" class="confirm-btn">Yes</button>
+            <button id="confirmNo" class="cancel-btn">No</button>
+        </div>
+    </div>
 
-            // AJAX request to fetch_recipes.php for processing
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "fetch_recipes.php", true); // Send to the new PHP file for processing
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    <script src="display_recipes.js"></script>
 
-            xhr.onload = function () {
-                if (this.status === 200) {
-                    // Update only the recipe results section
-                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = this.responseText;
-                } else {
-                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = "<p>No recipes found.</p>";
-                }
-            };
-
-            xhr.send("query=" + encodeURIComponent(searchQuery));
-        });
-
-        // Add event listener for See All button
-        document.getElementById("seeAllButton").addEventListener("click", function () {
-            // AJAX request to fetch_recipes.php for all recipes
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "fetch_recipes.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-            xhr.onload = function () {
-                if (this.status === 200) {
-                    // Update only the recipe results section
-                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = this.responseText;
-                } else {
-                    document.querySelector("#recipeResults .unique-recipe-cards").innerHTML = "<p>No recipes found.</p>";
-                }
-            };
-
-            xhr.send(); // No query parameter needed for all recipes
-        });
-    </script>
-
-
+    <!--main content sections here-->
     <footer>
         <section class="container">
             <p>&copy; The OG's 2024. All rights reserved.</p>
+            <!--Begin social buttons-->
+
+            <!--TODO replace links with relevant locations-->
             <div class="social-buttons">
                 <a href="https://www.instagram.com" class="social-button instagram" aria-label="Instagram"
                     target="_blank"></a>
@@ -118,8 +121,10 @@ session_start();
                     target="_blank"></a>
                 <a href="https://www.github.com" class="social-button github" aria-label="GitHub" target="_blank"></a>
             </div>
+            <!--End social buttons-->
         </section>
     </footer>
+
 </body>
 
 </html>

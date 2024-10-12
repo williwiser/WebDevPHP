@@ -89,10 +89,86 @@ let beefStew = {
   link: "beef.html",
 };
 
-let latestRecipesList = [chocolateCake, pastaAlfredo, beefStew]; // store these recipe objects in a list
-latestRecipesList.forEach((recipe) => {
-  addLatestRecipe(recipe); // render each recipe object in latest recipes section
-});
+// Function to generate recipe cards
+async function loadLatestRecipes() {
+  const recipeContainer = document.getElementById("latest-recipes-list");
+
+  try {
+    // Fetch recipes from the server
+    const response = await fetch("get_recipes.php");
+    const recipes = await response.json();
+
+    // Clear container before adding recipes (just in case)
+    recipeContainer.innerHTML = "";
+    if (recipes.length < 3) {
+      recipes.forEach((recipe) => {
+        const recipeCard = document.createElement("li");
+
+        recipeCard.classList.add("card");
+        recipeCard.classList.add("latest-recipe");
+
+        // Add inner HTML
+        recipeCard.innerHTML = `
+          <a href="recipe-detail.php?recipe_id=${recipe.recipe_id}">
+              <img src="${recipe.image}" />
+              <article>
+                <h3>${recipe.title}</h3>
+                <p>${recipe.description}</p>
+              </article>
+          </a>
+        `;
+
+        // Add event listener to each recipe card
+        recipeCard.addEventListener("click", () => {
+          console.log(`Recipe ID: ${recipe.recipe_id}`); // Debug line to confirm recipe_id is correct
+          window.location.href = `recipe-detail.php?recipe_id=${recipe.recipe_id}`;
+        });
+
+        // Append to the container
+        recipeContainer.appendChild(recipeCard);
+      });
+    } else {
+      for (let i = 0; i < 3; i++) {
+        const recipeCard = document.createElement("li");
+
+        recipeCard.classList.add("card");
+        recipeCard.classList.add("latest-recipe");
+
+        // Add inner HTML
+        recipeCard.innerHTML = `
+            <a href="recipe-detail.php?recipe_id=${recipes[i].recipe_id}">
+                <img src="${recipes[i].image}" />
+                <article>
+                  <h3>${recipes[i].title}</h3>
+                  <p>${recipes[i].description}</p>
+                </article>
+            </a>
+          `;
+
+        // Add event listener to each recipe card
+        recipeCard.addEventListener("click", () => {
+          console.log(`Recipe ID: ${recipes[i].recipe_id}`); // Debug line to confirm recipe_id is correct
+          window.location.href = `recipe-detail.php?recipe_id=${recipes[i].recipe_id}`;
+        });
+
+        // Append to the container
+        recipeContainer.appendChild(recipeCard);
+      }
+    }
+
+    // Check how many recipe cards were added
+    console.log(`Total recipe cards added: ${recipes.length}`);
+  } catch (error) {
+    console.error("Error loading recipes:", error);
+    recipeContainer.innerHTML = "<p>Failed to load recipes.</p>";
+  }
+}
+
+window.onload = loadLatestRecipes;
+// let latestRecipesList = [chocolateCake, pastaAlfredo, beefStew]; // store these recipe objects in a list
+// latestRecipesList.forEach((recipe) => {
+//   addLatestRecipe(recipe); // render each recipe object in latest recipes section
+// });
 
 //------------------------------------User Reviews Code_______________________________//
 // user reviews, these are temporary placeholder objects
