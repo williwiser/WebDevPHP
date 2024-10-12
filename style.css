@@ -147,7 +147,7 @@ hr {
 }
 
 /* Nav links */
-.nav-link {
+.nav-item .nav-link {
   text-decoration: none;
   color: white; /* Text color */
   font-size: 16px;
@@ -158,6 +158,9 @@ hr {
   letter-spacing: 1px;
 }
 
+.nav-item:last-child .nav-link {
+  color: #e0d998;
+}
 /* Hover effect */
 .nav-link::after {
   content: "";
@@ -467,6 +470,16 @@ textarea {
   justify-content: center;
 }
 
+#contact-sn .btn {
+}
+
+#contact-sn .btn {
+  width: 100%;
+}
+
+#contact-sn form {
+  background-color: #f3f3f3;
+}
 /* end form style */
 /*--------------------------------------------------------------------------------------------------------------*/
 
@@ -1317,6 +1330,7 @@ label {
   max-width: none;
   border: 1px #c7c7c7 solid;
   padding: 1rem;
+  min-height: 40rem;
 }
 
 .personal-info-frm p,

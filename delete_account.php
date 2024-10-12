@@ -137,7 +137,6 @@ $name = "";
                     <ul>
                         <li><a href="account.php">Personal Details</a></li>
                         <li><a href="my_reviews.php">My Reviews</a></li>
-                        <li><a href="newsletter.php">Newsletter</a></li>
                         <li><a href="delete_acc.php" class="active">Delete Account</a></li>
                     </ul>
                 </nav>

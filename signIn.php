@@ -6,6 +6,10 @@ $servername = "CS3-DEV.ICT.RU.AC.ZA";
 $username = "TheOGs";
 $password = "M7fiB7C6";
 $dbname = "theogs";
+$blockErr = "";
+
+$current_time = date('Y-m-d H:i:s');
+$time_limit = date('Y-m-d H:i:s', strtotime('-15 minutes'));
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -30,6 +34,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $password = cleanInput($_POST["password"]);
   }
+
+  $stmt = $conn->prepare("SELECT COUNT(*) FROM login_attempts WHERE email = ? AND attempt_time > ?");
+  $stmt->bind_param("ss", $email, $time_limit);
+  $stmt->execute();
+  $stmt->bind_result($failed_attempts);
+  $stmt->fetch();
+  $stmt->close();
+
+  if ($failed_attempts >= 3) {
+    echo "<script>
+            alert('Account is temporarily blocked due to multiple failed login attempts. Please try again later.');
+            window.location.href = 'signIn.php'; // Replace with the actual login page URL
+          </script>";
+    exit();
+  }
+
 
   // Proceed only if no validation errors
   if (empty($emailErr) && empty($passwordErr)) {
@@ -61,9 +81,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
       } else {
         $loginErr = "Invalid password. Please try again.";
+        $stmt = $conn->prepare("INSERT INTO login_attempts (email) VALUES (?)");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+
       }
     } else {
       $loginErr = "No account found with that email.";
+      $stmt = $conn->prepare("INSERT INTO login_attempts (email) VALUES (?)");
+      $stmt->bind_param("s", $email);
+      $stmt->execute();
     }
 
     // Close the statement
@@ -146,6 +173,7 @@ function cleanInput($data)
 
             <input placeholder="Password" type="password" id="password" name="password" />
             <span class="error"><?php echo $passwordErr ?></span>
+            <span class="error"><?php echo $blockErr ?></span>
 
             <input class="btn" type="submit" value="Sign In" />
             <p>New here? <a href="register.php">Sign Up</a></p>

@@ -106,8 +106,18 @@ $name = "";
                         } ?></p>
                     </hgroup>
                 </div>
+                <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (isset($_POST["logout"])) {
+                        session_unset();
+                        // destroy the session
+                        session_destroy();
+                        header("Location: index.php");
+                        exit;
+                    }
+                    // remove all session variables
+                } ?>
                 <form id="logout" action='log_out.php' method="POST">
-                    <input type="submit" id="logout" value="Log out">
+                    <input type="submit" name="logout" id="logout" value="Log out">
                 </form>
             </article>
             <div class="acc-group">
@@ -115,7 +125,6 @@ $name = "";
                     <ul>
                         <li><a href="account.php">Personal Details</a></li>
                         <li><a href="my_reviews.php" class="active">My Reviews</a></li>
-                        <li><a href="newsletter.php">Newsletter</a></li>
                         <li><a href="delete_account.php">Delete Account</a></li>
                     </ul>
                 </nav>

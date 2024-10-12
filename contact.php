@@ -1,7 +1,79 @@
 <?php
 session_start();
 ?>
+<?php
 
+$servername = "CS3-DEV.ICT.RU.AC.ZA";
+$username = "TheOGs";
+$password = "M7fiB7C6";
+$dbname = "theogs";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// Initialize variables
+$name = $email = $message = "";
+$nameErr = $emailErr = $messageErr = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Clean and assign form inputs
+  $name = cleanInput($_POST["name"]);
+  $email = cleanInput($_POST["email"]);
+  $message = cleanInput($_POST["message"]);
+
+  // Validate inputs
+  if (empty($name)) {
+    $nameErr = "* Name required";
+  }
+  if (empty($email)) {
+    $emailErr = "* Email required";
+  }
+  if (empty($message)) {
+    $messageErr = "* You can't send an empty message.";
+  }
+
+  // Proceed only if no validation errors
+  if (empty($nameErr) && empty($emailErr) && empty($messageErr)) {
+    // Prepare and bind
+    $stmt = $conn->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $name, $email, $message);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+      echo `<script>
+              alert("Thanks for reaching out! We'll get back to you soon.");
+              window.location.href = 'contact.php'; // Replace with the actual login page URL
+            </script>`;
+    } else {
+      echo `<script>
+              alert("Hmm, something went wrong, try again later.");
+              window.location.href = 'contact.php'; // Replace with the actual login page URL
+            </script>`;
+    }
+
+    // Close the statement
+    $stmt->close();
+  }
+}
+
+// Close the connection
+$conn->close();
+
+function cleanInput($data)
+{
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +111,7 @@ session_start();
       <span>|</span>
       <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
         <li class="nav-item">
-          <a href="account.php" class="nav-link">My Account <i class="fa fa-user"></i></a>
+          <a href="account.php" class="nav-link acc">My Account <i class="fa fa-user"></i></a>
         </li>
       <?php } else { ?>
         <li class="nav-item">
@@ -77,19 +149,22 @@ session_start();
   <main>
     <section id="contact-sn">
       <section class="container">
-        <form action="submit_contact.html" method="post">
+        <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
           <h2>Get in Touch</h2>
           <label>Name:
-            <input type="text" id="name" name="name" required />
+            <input type="text" id="name" name="name" />
           </label>
+          <span class="error"><?php echo $nameErr ?></span>
 
           <label for="email">Email:
-            <input type="email" id="email" name="email" required />
+            <input type="email" id="email" name="email" />
           </label>
+          <span class="error"><?php echo $emailErr ?></span>
 
           <label for="message">Message:
             <textarea id="message" name="message" rows="4" cols="50"></textarea>
           </label>
+          <span class="error"><?php echo $messageErr ?></span>
 
           <input class="btn" type="submit" value="Send Message" />
         </form>

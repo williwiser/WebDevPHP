@@ -20,6 +20,8 @@ $stmt = $conn->prepare("SELECT username FROM users WHERE user_id = ?");
 $stmt->bind_param("s", $user_id);
 $stmt->execute();
 $username = $stmt->get_result();
+$new_username = "";
+$userErr = "";
 
 $stmt = $conn->prepare("SELECT email FROM users WHERE user_id = ?");
 $stmt->bind_param("s", $user_id);
@@ -111,15 +113,17 @@ $name = "";
           </hgroup>
         </div>
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          if (isset($_POST["logout"])) {
+            session_unset();
+            // destroy the session
+            session_destroy();
+            header("Location: index.php");
+            exit;
+          }
           // remove all session variables
-          session_unset();
-          // destroy the session
-          session_destroy();
-          header("Location: index.php");
-          exit;
         } ?>
         <form id="logout" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-          <input type="submit" id="logout" value="Log out">
+          <input type="submit" name="logout" id="logout" value="Log out">
         </form>
       </article>
       <div class="acc-group">
@@ -127,19 +131,45 @@ $name = "";
           <ul>
             <li><a href="account.php" class="active">Personal Details</a></li>
             <li><a href="my_reviews.php">My Reviews</a></li>
-            <li><a href="newsletter.php">Newsletter</a></li>
             <li><a href="delete_account.php">Delete Account</a></li>
           </ul>
         </nav>
 
         <section class="info">
-          <form class="personal-info-frm">
+          <form class="personal-info-frm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST">
+            <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+              $new_username = $_POST['new_name']; // This could be a new password, username, etc.
+            
+              $checkUserName = $conn->prepare('SELECT user_id FROM users WHERE username = ?');
+              $checkUserName->bind_param("s", $new_username);
+              $checkUserName->execute();
+              $checkUserName->store_result();
+
+              if ($checkUserName->num_rows > 0) {
+                $userErr = "This user name has been taken already.";
+              } else {
+                // Prepare the UPDATE query
+                $stmt = $conn->prepare("UPDATE users SET username = ? WHERE user_id = ?");
+                $stmt->bind_param("ss", $new_username, $user_id);  // "ss" means two string parameters
+                if ($stmt->execute()) {
+                  $name = $new_username;
+                  $userErr = "Updated successfully.";
+                } else {
+                  $userErr = "Something went wrong. Try again later.";
+                }
+                $stmt->close();
+              }
+              $checkUserName->close();
+            }
+            ?>
             <h1>Personal Details</h1>
             <label for="username">User Name</label>
             <?php $row = $username->fetch_assoc(); ?>
-            <input type="text" value="<?php echo $name; ?>" />
+            <input type="text" name="new_name" value="<?php echo $name; ?>" />
             <label for="username">Email</label>
             <input type="email" value="<?php echo $_SESSION['email']; ?>" disabled />
+            <span><?php echo $userErr ?></span>
             <input type="submit" value="Save" />
           </form>
         </section>
