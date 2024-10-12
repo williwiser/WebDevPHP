@@ -1,4 +1,20 @@
+// Check if the 'loggedout' flag is in the URL
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has("deletedacc")) {
+  // Show an alert if the user has logged out
+  alert("Account deleted successfully.");
 
+  // Optionally, remove the 'loggedout' flag from the URL after showing the alert
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+if (urlParams.has("accSuccessful")) {
+  // Show an alert if the user has logged out
+  alert("Account created successfully!");
+
+  // Optionally, remove the 'loggedout' flag from the URL after showing the alert
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
 
 // Function to generate recipe cards
 async function loadRecipes() {
@@ -6,7 +22,7 @@ async function loadRecipes() {
 
   try {
     // Fetch recipes from the server
-    const response = await fetch('get_recipes.php');
+    const response = await fetch("get_recipes.php");
     const recipes = await response.json();
 
     // Clear container before adding recipes (just in case)
@@ -36,17 +52,14 @@ async function loadRecipes() {
 
     // Check how many recipe cards were added
     console.log(`Total recipe cards added: ${recipes.length}`);
-
   } catch (error) {
-    console.error('Error loading recipes:', error);
+    console.error("Error loading recipes:", error);
     recipeContainer.innerHTML = "<p>Failed to load recipes.</p>";
   }
 }
 
 // Load recipes on page load
 window.onload = loadRecipes;
-
-
 
 // globals
 const scrollerContainer = document.querySelector(".slide-container-inner");

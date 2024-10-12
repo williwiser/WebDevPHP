@@ -24,7 +24,7 @@ session_start();
         <a href="index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
-        <a href="about.html" class="nav-link ">About</a>
+        <a href="about.php" class="nav-link">About</a>
       </li>
       <li class="nav-item">
         <a href="recipes.php" class="nav-link">Recipes</a>
@@ -32,17 +32,20 @@ session_start();
       <li class="nav-item">
         <a href="contact.php" class="nav-link active">Contact</a>
       </li>
+      <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor' && isset($_SESSION['loggedin'])): ?>
+        <span>|</span>
+        <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
+      <?php endif; ?>
+      <span>|</span>
       <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
         <li class="nav-item">
-          <a href="account.php" class="nav-link">My Account</a>
+          <a href="account.php" class="nav-link">My Account <i class="fa fa-user"></i></a>
         </li>
       <?php } else { ?>
         <li class="nav-item">
           <a href="signIn.php" class="nav-link">Sign In</a>
-        </li><?php } ?>
-      <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
-        <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
-      <?php endif; ?>
+        </li>
+      <?php } ?>
     </ul>
   </nav>
 

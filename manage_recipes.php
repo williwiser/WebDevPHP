@@ -14,6 +14,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Recipes | Recipes</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -31,12 +32,14 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
             <li class="nav-item">
                 <a href="contact.php" class="nav-link">Contact</a>
             </li>
-            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor' && isset($_SESSION['loggedin'])): ?>
+                <span>|</span>
                 <li class="nav-item"><a href="manage_recipes.php" class="nav-link  active">Manage Recipes</a></li>
             <?php endif; ?>
+            <span>|</span>
             <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
                 <li class="nav-item">
-                    <a href="account.php" class="nav-link">My Account <i class="fa-solid fa-user"></i></a>
+                    <a href="account.php" class="nav-link">My Account <i class="fa fa-user"></i></a>
                 </li>
             <?php } else { ?>
                 <li class="nav-item">
@@ -52,7 +55,13 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'editor') {
     </header>
 
     <section class="manage-options">
-        <button onclick="window.location.href='add_recipe.php'">Add Recipe</button>
+        <section class="container">
+            <h1>Your Recipes</h1>
+            <button onclick="window.location.href='add_recipe.php'">Add Recipe</button>
+        </section>
+        <section class="container">
+            <hr>
+        </section>
     </section>
 
     <div id="search-results" class="manage-recipes-container"></div>

@@ -10,23 +10,38 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipes | Recipes</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <nav class="navbar">
         <ul class="nav-list">
-            <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="recipes.php" class="nav-link active">Recipes</a></li>
-            <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-            <?php if (isset($_SESSION['email'], $_SESSION['user_id'], $_SESSION['loggedin'])): ?>
-                <li class="nav-item"><a href="account.php" class="nav-link">My Account</a></li>
-            <?php else: ?>
-                <li class="nav-item"><a href="signIn.php" class="nav-link">Sign In</a></li>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
+            <li class="nav-item">
+                <a href="index.php" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.php" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="recipes.php" class="nav-link active">Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.php" class="nav-link">Contact</a>
+            </li>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor' && isset($_SESSION['loggedin'])): ?>
+                <span>|</span>
                 <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
             <?php endif; ?>
+            <span>|</span>
+            <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
+                <li class="nav-item">
+                    <a href="account.php" class="nav-link">My Account <i class="fa fa-user"></i></a>
+                </li>
+            <?php } else { ?>
+                <li class="nav-item">
+                    <a href="signIn.php" class="nav-link">Sign In</a>
+                </li>
+            <?php } ?>
         </ul>
     </nav>
 

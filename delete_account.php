@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +22,8 @@ $stmt->bind_param("s", $user_id);
 $stmt->execute();
 $email = $stmt->get_result();
 
+$stmt->close();
+
 $name = "";
 ?>
 
@@ -29,11 +32,22 @@ $name = "";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Account | Recipes</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body id="my-account">
     <script src="validation.js"></script>
     <script src="navigator-info.js"></script>
+    <script src="script.js"></script>
+    <script>
+        let mod = document.getElementById("showModal");
+
+        mod.addEventListener("click", showMod());
+        function showMod() {
+            deleteModal.style.display = "flex";
+            alert("hi");
+        }
+    </script>
     <nav class="navbar">
         <ul class="nav-list">
             <li class="nav-item">
@@ -48,18 +62,20 @@ $name = "";
             <li class="nav-item">
                 <a href="contact.php" class="nav-link">Contact</a>
             </li>
+            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor' && isset($_SESSION['loggedin'])): ?>
+                <span>|</span>
+                <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
+            <?php endif; ?>
+            <span>|</span>
             <?php if (isset($_SESSION['email']) && isset($_SESSION['user_id']) && isset($_SESSION['loggedin'])) { ?>
                 <li class="nav-item">
-                    <a href="account.php" class="nav-link active">My Account</a>
+                    <a href="account.php" class="nav-link active">My Account <i class="fa fa-user"></i></a>
                 </li>
             <?php } else { ?>
                 <li class="nav-item">
                     <a href="signIn.php" class="nav-link">Sign In</a>
                 </li>
             <?php } ?>
-            <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'editor'): ?>
-                <li class="nav-item"><a href="manage_recipes.php" class="nav-link">Manage Recipes</a></li>
-            <?php endif; ?>
         </ul>
     </nav>
 
@@ -103,15 +119,17 @@ $name = "";
                     </hgroup>
                 </div>
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    // remove all session variables
-                    session_unset();
-                    // destroy the session
-                    session_destroy();
-                    header("Location: index.php");
-                    exit;
+                    if (isset($_POST["logout"])) {
+                        // remove all session variables
+                        session_unset();
+                        // destroy the session
+                        session_destroy();
+                        header("Location: index.php");
+                        exit();
+                    }
                 } ?>
                 <form id="logout" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                    <input type="submit" id="logout" value="Log out">
+                    <input type="submit" name="logout" id="logout" value="Log out">
                 </form>
             </article>
             <div class="acc-group">
@@ -125,16 +143,52 @@ $name = "";
                 </nav>
 
                 <section class="info">
-                    <form class="personal-info-frm">
+
+                    <div id="delete_modal">
+                        <form class="no-hover-card" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>"
+                            method="POST">
+                            <h1>Delete Account</h1>
+                            <p>Are you sure? This action cannot be reversed.</p>
+                            <div class="btns">
+                                <input type="submit" name="delete" value="Delete">
+                                <button value="Back" class="back-btn"
+                                    onclick=" let deleteModal = document.getElementById('delete_modal');  deleteModal.style.display = 'none';">Back</button>
+                            </div>
+
+                            <?php
+                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                if (isset($_POST["delete"])) {
+                                    $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
+                                    $stmt->bind_param("i", $user_id);
+                                    $stmt->execute();
+                                    $stmt->close();
+                                    // Remove all session variables
+                                    session_unset();
+
+                                    // Destroy the session
+                                    session_destroy();
+
+                                    // Redirect to index.php with a confirmation
+                                    header("Location: index.php?deletedacc=true");
+                                    exit(); // Ensure the script stops executing after redirection
+                            
+
+                                }
+                            }
+                            ?>
+                        </form>
+                    </div>
+                    <div class="personal-info-frm">
                         <h1>Delete My Account</h1>
                         <p>This action is irreversible.</p>
-                        <input type="submit" value="Delete My Account" />
-                    </form>
+                        <button id="showModal"
+                            onclick=" let deleteModal = document.getElementById('delete_modal');  deleteModal.style.display = 'flex';">Delete
+                            Account</button>
+                    </div>
                 </section>
             </div>
         </section>
     </main>
-
     <footer>
         <section class="container">
             <p>&copy; The OG's 2024. All rights reserved.</p>
@@ -153,6 +207,7 @@ $name = "";
             <!--End social buttons-->
         </section>
     </footer>
+
 </body>
 
 </html>
