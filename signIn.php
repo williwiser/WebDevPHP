@@ -80,14 +80,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php");
         exit;
       } else {
-        $loginErr = "Invalid password. Please try again.";
+        $loginErr = "Invalid password. Please try again. <br>Email will be blocked after 3 failed login attempts.";
         $stmt = $conn->prepare("INSERT INTO login_attempts (email) VALUES (?)");
         $stmt->bind_param("s", $email);
         $stmt->execute();
 
       }
     } else {
-      $loginErr = "No account found with that email.";
+      $loginErr = "No account found with that email. <br>Email will be blocked after 3 failed login attempts.";
       $stmt = $conn->prepare("INSERT INTO login_attempts (email) VALUES (?)");
       $stmt->bind_param("s", $email);
       $stmt->execute();

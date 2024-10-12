@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    // If not logged in, redirect to a custom 404 page or show an error message
+    header("Location: 404.php");
+    exit(); // Stop the script from executing further
+}
 ob_start();
 ?>
 
