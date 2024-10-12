@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             <img src="${recipe.image}" alt="${recipe.title}" class="recipe-image">
                             <h2>${recipe.title}</h2>
                             <p>${recipe.description}</p>
-                            
                         </a>
                     `;
             searchResults.appendChild(recipeCard);
